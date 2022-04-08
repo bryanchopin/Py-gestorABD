@@ -21,6 +21,19 @@ def createDirectorie():
     else:
         print("Directorie created successfully")
 
+def createFile():
+    try:
+        archivo = input("Enter de FileName: ")
+        parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/"
+        file = open(f'/{parent_dir}/{archivo}.txt', "w")
+        # file.write("Primera línea" + os.linesep)
+        # file.write("Segunda línea")
+        file.close()
+        if archivo in os.listdir(parent_dir):
+            print ("File created successfully")
+    except OSError:
+        print ("File created fail")
+
 
 def deleteDirectory():
     try:
@@ -33,15 +46,14 @@ def deleteDirectory():
         print("Directorie removed successfully")
 
 def deleteFile():
-    # File name
-    file = input('Ingresa el archivo y la extensión: ')
-    # File location
-    location = "D:/Pycharm projects/GeeksforGeeks/Authors/Nikhil/"
-    # Path
-    path = os.path.join(location, file)
-    # Remove the file
-    # 'file.txt'
-    os.remove(path)
+    try:
+        file = input('Ingresa el archivo y la extensión: ')
+        path = os.path.join(parent_dir, file)
+        os.remove(path)
+    except OSError:
+        print("File deleted fail")
+    else:
+        print("File deleted successfully")
 
 
 def createFolder():
@@ -83,7 +95,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","ch","cha","exit,ls,mkdir,rmdir"]
+    opcion = ["path base","ch","cha","exit,ls,mkdir,rmdir,create,rmcreate"]
 
     while not salir:
 
@@ -101,6 +113,10 @@ def menu():
             deleteDirectory()
         elif opcion == "mkdir":
             createDirectorie()
+        elif opcion == "create":
+            createFile()
+        elif opcion == "rmcreate":
+            deleteFile()
         elif opcion == "exit":
             salir = True
         else:
