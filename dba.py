@@ -21,20 +21,25 @@ def createDirectorie():
     else:
         print("Directorie created successfully")
 
+
+# UPDATED
+# find new issue, incorrect evaluation in if
 def createFile():
-    try:
-        archivo = input("Enter de FileName: ")
-        parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/"
-        file = open(f'/{parent_dir}/{archivo}.txt', "w")
-        # file.write("Primera línea" + os.linesep)
-        # file.write("Segunda línea")
+    files = input("Enter de FileName: ").split(',')
+    archivo = list(files)
+    parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/"
+    for item in archivo:
+        file = open(f'/{parent_dir}/{item}.txt', "w")
+                # file.write("Primera línea" + os.linesep)
+                # file.write("Segunda línea")
         file.close()
-        if archivo in os.listdir(parent_dir):
-            print ("File created successfully")
-    except OSError:
-        print ("File created fail")
+        if item not in archivo:
+            print(f'file {item} created successfully')
+        elif item in archivo:
+            print('file created failed')
 
 
+# find new issue, failed deleting paths with roots
 def deleteDirectory():
     try:
         directory = input('Ingresa el directorio: ')
@@ -45,19 +50,19 @@ def deleteDirectory():
     else:
         print("Directorie removed successfully")
 
+
+# UPDATED
 def deleteFile():
     try:
-        file = input('Ingresa el archivo y la extensión: ')
-        path = os.path.join(parent_dir, file)
-        os.remove(path)
+        files = input("Enter de FileName: ").split(',')
+        archivo = list(files)
+        for item in archivo:
+            path = os.path.join(parent_dir, item)
+            os.remove(path)
     except OSError:
         print("File deleted fail")
     else:
         print("File deleted successfully")
-
-
-def createFolder():
-    print("Folder created successfully")
 
 def changeDirectorie():
     os.chdir('../')
@@ -72,11 +77,9 @@ def changeDirectorieA():
     os.chdir('..')
     print("Directorie changed successfully")
 
-
 def currentPath():
     cP = os.getcwd()
     print("Current directorie:", cP)
-
 
 def pedirComando():
     correcto = False
@@ -87,11 +90,6 @@ def pedirComando():
         except ValueError:
             print('Error, introduce un comando valido')
     return cmd
-
-
-
-
-
 
 def menu():
     salir = False
@@ -124,14 +122,8 @@ def menu():
 
     print ("Fin")
 
-
-
-
-
-
 def init():
     menu()
-
 
 def layoutBrychxpin():
     print("----------------------------------------------------------")
