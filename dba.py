@@ -25,15 +25,17 @@ def createFile():
     try:
         archivo = input("Enter de FileName: ")
         parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/"
-        file = open(f'/{parent_dir}/{archivo}.txt', "w")
+        file = open(f'/{parent_dir}/{archivo}', "w")
         # file.write("Primera línea" + os.linesep)
         # file.write("Segunda línea")
         file.close()
-        
-        if archivo in os.listdir(parent_dir):
-            print ("File created successfully")
     except OSError:
+            print ("File alredy exist")
+
+    if archivo in os.listdir(parent_dir):
         print ("File created fail")
+    else:
+        print ("File created successfully")
 
 
 def deleteDirectory():
@@ -56,10 +58,6 @@ def deleteFile():
     else:
         print("File deleted successfully")
 
-
-def createFolder():
-    print("Folder created successfully")
-
 def changeDirectorie():
     os.chdir('../')
     print("Directorie changed successfully")
@@ -73,11 +71,9 @@ def changeDirectorieA():
     os.chdir('..')
     print("Directorie changed successfully")
 
-
 def currentPath():
     cP = os.getcwd()
     print("Current directorie:", cP)
-
 
 def pedirComando():
     correcto = False
@@ -88,11 +84,6 @@ def pedirComando():
         except ValueError:
             print('Error, introduce un comando valido')
     return cmd
-
-
-
-
-
 
 def menu():
     salir = False
@@ -125,14 +116,8 @@ def menu():
 
     print ("Fin")
 
-
-
-
-
-
 def init():
     menu()
-
 
 def layoutBrychxpin():
     print("----------------------------------------------------------")
