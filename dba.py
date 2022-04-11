@@ -4,11 +4,49 @@ import os, sys, time
 parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD"
 
 
+#UPDATED AND NEW FUNCTIONS
+
+
 def clearConsole():
     command = 'clear'
     if os.name in ('nt', 'dos'):
         command = 'clear'
     os.system(command)
+def helpConsole():
+    print('''
+--COMMANDS 
+HELP :
+CLEAR :
+EXIT
+CREA BASE:
+BORRA BASE:
+''')
+
+
+def crearDB():
+    try:
+        directory = input("Crea base ")
+        path = os.path.join(parent_dir, directory)
+        os.mkdir(path)
+    except OSError:
+        print("DB created fail")
+    else:
+        print("DB created successfully")
+
+
+# find new issue, failed deleting paths with roots
+def borrarDB():
+    try:
+        directory = input('Borra base ')
+        path = os.path.join(parent_dir, directory)
+        os.rmdir(path)
+    except OSError:
+        print("DB removed fail")
+    else:
+        print("DB removed successfully")
+
+
+
 
 
 
@@ -26,31 +64,6 @@ def createFile():
             print(f'file {item} created successfully')
         elif item in archivo:
             print('file created failed')
-
-
-
-def createDirectorie():
-    try:
-        directory = input("Crea base ")
-        path = os.path.join(parent_dir, directory)
-        os.mkdir(path)
-    except OSError:
-        print("DB created fail")
-    else:
-        print("DB created successfully")
-
-
-# find new issue, failed deleting paths with roots
-def deleteDirectory():
-    try:
-        directory = input('Borra base ')
-        path = os.path.join(parent_dir, directory)
-        os.rmdir(path)
-    except OSError:
-        print("DB removed fail")
-    else:
-        print("DB removed successfully")
-
 
 # UPDATED
 def deleteFile():
@@ -94,7 +107,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","ch","cha","exit","ls","crea base","borra base","create","rmcreate","clear"]
+    opcion = ["path base","ch","cha","exit","ls","crea base","borra base","create","rmcreate","clear","help"]
 
     while not salir:
 
@@ -109,15 +122,17 @@ def menu():
         elif opcion == "ls":
             listDir()
         elif opcion == "borra base":
-            deleteDirectory()
+            borrarDB()
         elif opcion == "crea base":
-            createDirectorie()
+            crearDB()
         elif opcion == "create":
             createFile()
         elif opcion == "rmcreate":
             deleteFile()
         elif opcion == "clear":
             clearConsole()
+        elif opcion == "help":
+            helpConsole()
         elif opcion == "exit":
             salir = True
         else:
