@@ -10,16 +10,6 @@ def clearConsole():
         command = 'clear'
     os.system(command)
 
-def createDirectorie():
-    try:
-        directory = input("Enter de dirName: ")
-        parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/"
-        path = os.path.join(parent_dir, directory)
-        os.mkdir(path)
-    except OSError:
-        print("Directorie created fail")
-    else:
-        print("Directorie created successfully")
 
 
 # UPDATED
@@ -27,7 +17,6 @@ def createDirectorie():
 def createFile():
     files = input("Enter de FileName: ").split(',')
     archivo = list(files)
-    parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/"
     for item in archivo:
         file = open(f'/{parent_dir}/{item}.txt', "w")
                 # file.write("Primera línea" + os.linesep)
@@ -39,16 +28,28 @@ def createFile():
             print('file created failed')
 
 
+
+def createDirectorie():
+    try:
+        directory = input("Crea base ")
+        path = os.path.join(parent_dir, directory)
+        os.mkdir(path)
+    except OSError:
+        print("DB created fail")
+    else:
+        print("DB created successfully")
+
+
 # find new issue, failed deleting paths with roots
 def deleteDirectory():
     try:
-        directory = input('Ingresa el directorio: ')
+        directory = input('Borra base ')
         path = os.path.join(parent_dir, directory)
         os.rmdir(path)
     except OSError:
-        print("Directorie removed fail")
+        print("DB removed fail")
     else:
-        print("Directorie removed successfully")
+        print("DB removed successfully")
 
 
 # UPDATED
@@ -85,7 +86,7 @@ def pedirComando():
     correcto = False
     while(not correcto):
         try:
-            cmd = str(input("Introduce comando: "))
+            cmd = str(input("brychxpin: "))
             correcto = True
         except ValueError:
             print('Error, introduce un comando valido')
@@ -93,7 +94,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","ch","cha","exit,ls,mkdir,rmdir,create,rmcreate"]
+    opcion = ["path base","ch","cha","exit","ls","crea base","borra base","create","rmcreate","clear"]
 
     while not salir:
 
@@ -107,14 +108,16 @@ def menu():
             changeDirectorieA()
         elif opcion == "ls":
             listDir()
-        elif opcion == "rmdir":
+        elif opcion == "borra base":
             deleteDirectory()
-        elif opcion == "mkdir":
+        elif opcion == "crea base":
             createDirectorie()
         elif opcion == "create":
             createFile()
         elif opcion == "rmcreate":
             deleteFile()
+        elif opcion == "clear":
+            clearConsole()
         elif opcion == "exit":
             salir = True
         else:
