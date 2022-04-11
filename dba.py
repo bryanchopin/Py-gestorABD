@@ -21,23 +21,25 @@ def createDirectorie():
     else:
         print("Directorie created successfully")
 
+
+# UPDATED
+# find new issue, incorrect evaluation in if
 def createFile():
-    try:
-        archivo = input("Enter de FileName: ")
-        parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/"
-        file = open(f'/{parent_dir}/{archivo}', "w")
-        # file.write("Primera línea" + os.linesep)
-        # file.write("Segunda línea")
+    files = input("Enter de FileName: ").split(',')
+    archivo = list(files)
+    parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/"
+    for item in archivo:
+        file = open(f'/{parent_dir}/{item}.txt', "w")
+                # file.write("Primera línea" + os.linesep)
+                # file.write("Segunda línea")
         file.close()
-    except OSError:
-            print ("File alredy exist")
-
-    if archivo in os.listdir(parent_dir):
-        print ("File created fail")
-    else:
-        print ("File created successfully")
+        if item not in archivo:
+            print(f'file {item} created successfully')
+        elif item in archivo:
+            print('file created failed')
 
 
+# find new issue, failed deleting paths with roots
 def deleteDirectory():
     try:
         directory = input('Ingresa el directorio: ')
@@ -48,11 +50,15 @@ def deleteDirectory():
     else:
         print("Directorie removed successfully")
 
+
+# UPDATED
 def deleteFile():
     try:
-        file = input('Ingresa el archivo y la extensión: ')
-        path = os.path.join(parent_dir, file)
-        os.remove(path)
+        files = input("Enter de FileName: ").split(',')
+        archivo = list(files)
+        for item in archivo:
+            path = os.path.join(parent_dir, item)
+            os.remove(path)
     except OSError:
         print("File deleted fail")
     else:
