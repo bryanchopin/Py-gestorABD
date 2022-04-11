@@ -1,3 +1,6 @@
+from pynput import keyboard as kb
+# 
+# 
 # def pedirNumeroEntero():
 #     correcto=False
 #     num=0
@@ -36,5 +39,17 @@
 
 # print ("Fin")
 
-for i in [0, 1, 2, 3]:
-    print(f"{i} * {i} * {i} = {i ** 3}")
+# for i in [0, 1, 2, 3]:
+#     print(f"{i} * {i} * {i} = {i ** 3}")
+
+
+
+def pulsa(tecla):
+    	print('Se ha pulsado la tecla ' + str(tecla))
+
+with kb.Listener(pulsa) as escuchador:
+	escuchador.join()
+
+
+# print("Emter a numbers")
+# numeros = input().split('')

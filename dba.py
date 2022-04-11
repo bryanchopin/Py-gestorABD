@@ -29,6 +29,7 @@ def createFile():
         # file.write("Primera línea" + os.linesep)
         # file.write("Segunda línea")
         file.close()
+        
         if archivo in os.listdir(parent_dir):
             print ("File created successfully")
     except OSError:
