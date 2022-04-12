@@ -1,50 +1,157 @@
-from pynput import keyboard as kb
-# 
-# 
-# def pedirNumeroEntero():
-#     correcto=False
-#     num=0
-#     while(not correcto):
-#         try:
-#             num = int(input("Introduce un numero entero: "))
-#             correcto=True
-#         except ValueError:
-#             print('Error, introduce un numero entero')
+from ast import Str
+from cmath import e
+from ntpath import join
+import os, sys, time
 
-#     return num
+parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
 
-# salir = False
-# opcion = 0
-
-# while not salir:
-
-#     print ("1. Opcion 1")
-#     print ("2. Opcion 2")
-#     print ("3. Opcion 3")
-#     print ("4. Salir")
-#     print ("Elige una opcion")
-
-#     opcion = pedirNumeroEntero()
-
-#     if opcion == 1:
-#         print ("Opcion 1")
-#     elif opcion == 2:
-#         print ("Opcion 2")
-#     elif opcion == 3:
-#         print("Opcion 3")
-#     elif opcion == 4:
-#         salir = True
-#     else:
-#         print ("Introduce un numero entre 1 y 3")
-
-# print ("Fin")
-
-# for i in [0, 1, 2, 3]:
-#     print(f"{i} * {i} * {i} = {i ** 3}")
+#UPDATED AND NEW FUNCTIONS
 
 
+def clearConsole():
+    command = 'clear'
+    if os.name in ('nt', 'dos'):
+        command = 'clear'
+    os.system(command)
+def helpConsole():
+    print('''
+    --COMMANDS 
+    HELP :
+    CLEAR :
+    EXIT:
+    CREA BASE:
+    BORRA BASE:
+''')
+
+
+def crearDB():
+    try:
+        directory = input("Crea base ")
+        path = os.path.join(parent_dir, directory)
+        os.mkdir(path)
+    except OSError:
+        print("DB created fail")
+    else:
+        print("DB created successfully")
+
+
+# find new issue, failed deleting paths with roots
+def borrarDB():
+    try:
+        directory = input('Borra base ')
+        path = os.path.join(parent_dir, directory)
+        os.rmdir(path)
+    except OSError:
+        print("DB removed fail")
+    else:
+        print("DB removed successfully")
+
+
+def MuestraDB():
+    dir_list = os.listdir(parent_dir)
+    for item in dir_list:
+        print(f"DB name: {item}")
+
+def currentPath():
+    cP = os.getcwd()
+    print(cP)
+
+def usaDB():
+    DBname = input("Usa base ")
+    path = os.path.join(parent_dir,DBname)
+    os.chdir(path)
+    currentPath()
+    print(f"DB selected {DBname}")
+
+
+# UPDATED
+# find new issue, incorrect evaluation in if
+def createFile():
+    try:
+        files = input("Enter de FileName: ").split(',')
+        archivo = list(files)
+        DBname  = str(currentPath())
+        for item in archivo:
+            file = open(f'/{DBname}/{item}.dat', "w")
+                    # file.write("Primera línea" + os.linesep)
+                    # file.write("Segunda línea")
+            file.close()
+            if item not in archivo:
+                print(f'file {item} created successfully')
+            elif item in archivo:
+                print('file created failed')
+    except OSError:
+        print(e)
+
+# UPDATED
+def deleteFile():
+    try:
+        files = input("Enter de FileName: ").split(',')
+        archivo = list(files)
+        for item in archivo:
+            path = os.path.join(parent_dir, item)
+            os.remove(path)
+    except OSError:
+        print("File deleted fail")
+    else:
+        print("File deleted successfully")
+
+
+def changeDirectorieA():
+    os.chdir('..')
+    print("Directorie changed successfully")
 
 
 
-# print("Emter a numbers")
-# numeros = input().split('')
+def pedirComando():
+    correcto = False
+    while(not correcto):
+        try:
+            cmd = str(input("brychxpin: "))
+            correcto = True
+        except ValueError:
+            print('Error, introduce un comando valido')
+    return cmd
+
+def menu():
+    salir = False
+    opcion = ["path base","usa base","exit","muestra bases","crea base","borra base","create","rmcreate","clear","help"]
+
+    while not salir:
+
+        opcion = pedirComando()
+
+        if opcion == "path base":
+            currentPath()
+        elif opcion == "usa base":
+            usaDB()
+        elif opcion == "muestra bases":
+            MuestraDB()
+        elif opcion == "borra base":
+            borrarDB()
+        elif opcion == "crea base":
+            crearDB()
+        elif opcion == "create":
+            createFile()
+        elif opcion == "rmcreate":
+            deleteFile()
+        elif opcion == "clear":
+            clearConsole()
+        elif opcion == "help":
+            helpConsole()
+        elif opcion == "exit":
+            salir = True
+        else:
+            print ("Introduce un comando valido")
+
+    print ("Fin")
+
+def init():
+    menu()
+
+def layoutBrychxpin():
+    print("-----------------------------------------------------------")
+    init()
+
+
+layoutBrychxpin()

@@ -1,8 +1,9 @@
 from ast import Str
+from cmath import e
+from ntpath import join
 import os, sys, time
 
 parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
-
 
 #UPDATED AND NEW FUNCTIONS
 
@@ -51,19 +52,16 @@ def MuestraDB():
     for item in dir_list:
         print(f"DB name: {item}")
 
+def currentPath():
+    cP = os.getcwd()
+    print(cP)
 
 def usaDB():
     DBname = input("Usa base ")
     path = os.path.join(parent_dir,DBname)
     os.chdir(path)
-    dbname(DBname)
+    currentPath()
     print(f"DB selected {DBname}")
-
-def dbname(DBname):
-    try:
-        return DBname
-    except OSError:
-        print("Select a DB name first")
 
 
 # UPDATED
@@ -72,40 +70,35 @@ def createFile():
     try:
         files = input("Enter de FileName: ").split(',')
         archivo = list(files)
-        DBname  = dbname()
+        path = os.getcwd()
         for item in archivo:
-            file = open(f'/{parent_dir}/{DBname}/{item}.dat', "w")
+            file = open(f'/{path}/{item}.dat', "w")
                     # file.write("Primera línea" + os.linesep)
                     # file.write("Segunda línea")
             file.close()
-            if item not in archivo:
-                print(f'file {item} created successfully')
-            elif item in archivo:
-                print('file created failed')
+            print(f'file {item} created successfully')
     except OSError:
-        print("Select a DB name first")
+        print("file created fail")
 
-# UPDATED
+# UPDATED UPDATED
 def deleteFile():
     try:
         files = input("Enter de FileName: ").split(',')
         archivo = list(files)
+        ruta = os.getcwd()
         for item in archivo:
-            path = os.path.join(parent_dir, item)
+            path = os.path.join(ruta, item)
             os.remove(path)
+            print(f"File {item} deleted successfully")
     except OSError:
         print("File deleted fail")
-    else:
-        print("File deleted successfully")
 
 
 def changeDirectorieA():
     os.chdir('..')
     print("Directorie changed successfully")
 
-def currentPath():
-    cP = os.getcwd()
-    print("Current directorie:", cP)
+
 
 def pedirComando():
     correcto = False
