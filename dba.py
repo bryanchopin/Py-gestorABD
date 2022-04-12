@@ -1,7 +1,7 @@
 from ast import Str
 import os, sys, time
 
-parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD"
+parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
 
 
 #UPDATED AND NEW FUNCTIONS
@@ -14,12 +14,12 @@ def clearConsole():
     os.system(command)
 def helpConsole():
     print('''
---COMMANDS 
-HELP :
-CLEAR :
-EXIT
-CREA BASE:
-BORRA BASE:
+    --COMMANDS 
+    HELP :
+    CLEAR :
+    EXIT:
+    CREA BASE:
+    BORRA BASE:
 ''')
 
 
@@ -46,24 +46,44 @@ def borrarDB():
         print("DB removed successfully")
 
 
+def MuestraDB():
+    dir_list = os.listdir(parent_dir)
+    for item in dir_list:
+        print(f"DB name: {item}")
 
 
+def usaDB():
+    DBname = input("Usa base ")
+    path = os.path.join(parent_dir,DBname)
+    os.chdir(path)
+    dbname(DBname)
+    print(f"DB selected {DBname}")
+
+def dbname(DBname):
+    try:
+        return DBname
+    except OSError:
+        print("Select a DB name first")
 
 
 # UPDATED
 # find new issue, incorrect evaluation in if
 def createFile():
-    files = input("Enter de FileName: ").split(',')
-    archivo = list(files)
-    for item in archivo:
-        file = open(f'/{parent_dir}/{item}.txt', "w")
-                # file.write("Primera línea" + os.linesep)
-                # file.write("Segunda línea")
-        file.close()
-        if item not in archivo:
-            print(f'file {item} created successfully')
-        elif item in archivo:
-            print('file created failed')
+    try:
+        files = input("Enter de FileName: ").split(',')
+        archivo = list(files)
+        DBname  = dbname()
+        for item in archivo:
+            file = open(f'/{parent_dir}/{DBname}/{item}.dat', "w")
+                    # file.write("Primera línea" + os.linesep)
+                    # file.write("Segunda línea")
+            file.close()
+            if item not in archivo:
+                print(f'file {item} created successfully')
+            elif item in archivo:
+                print('file created failed')
+    except OSError:
+        print("Select a DB name first")
 
 # UPDATED
 def deleteFile():
@@ -78,14 +98,6 @@ def deleteFile():
     else:
         print("File deleted successfully")
 
-def changeDirectorie():
-    os.chdir('../')
-    print("Directorie changed successfully")
-
-def listDir():
-    dir_list = os.listdir(parent_dir)
-    print("Files and directories in '", parent_dir, "' :") 
-    print(dir_list)
 
 def changeDirectorieA():
     os.chdir('..')
@@ -107,7 +119,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","ch","cha","exit","ls","crea base","borra base","create","rmcreate","clear","help"]
+    opcion = ["path base","usa base","exit","muestra bases","crea base","borra base","create","rmcreate","clear","help"]
 
     while not salir:
 
@@ -115,12 +127,10 @@ def menu():
 
         if opcion == "path base":
             currentPath()
-        elif opcion == "ch":
-            changeDirectorie()
-        elif opcion == "cha":
-            changeDirectorieA()
-        elif opcion == "ls":
-            listDir()
+        elif opcion == "usa base":
+            usaDB()
+        elif opcion == "muestra bases":
+            MuestraDB()
         elif opcion == "borra base":
             borrarDB()
         elif opcion == "crea base":
