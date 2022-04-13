@@ -1,0 +1,120 @@
+al momento de que los datos entren al para metro deberan de 
+tomarse en cuenta los espacios para que asi puedas separarlos
+con una funcion split().
+
+var = input("ingresa los datos: ").split(',')
+
+ya despues esa variable se almacene en un arreglo de 
+2 posiciones para que al momento de abrir el menu solo acepte
+un espacio..
+
+'crea base'' ''nombre''base'
+
+y esa entrada de datos se compare en un arreglo
+
+arreglo[var 1, var 2, var 3]
+
+seria como una variable de control que te permita hacer bien
+las consultas.
+
+
+----------------------------------------------------------
+
+al momento de crear archivoa tambien te puede ayudar asignando los campos 
+y la jerarquia de los mismos en la entrada de datos
+
+por ejemplo
+
+var = input("ingresa el nombre del campo y los atributos del mismo").split(',')
+'nombre del campo'' ''atributo1'' 'atributo 2'' ''atributo3'
+arreglo = [var 1, var 2, var 3 , var 4, var 5]
+
+
+-----------------------------------------------------------
+
+
+crea tabla nombreTabla
+
+se van a crear 2 archivos 1 sera donde al momento de declarar el comando
+'crea tabla' en ese momento pero en un salto de linea estaremos creando la 
+estructura de los campos de nuestra tabla donde podremos colocar los tipos de campo 
+que queramos.
+Los tipos de campo son los siguientes
+
+entero caracter decimal y fecha
+
+la estructura base es la siguiente:
+
+NombreDeCampo,tipoDeCampo,Longitud
+
+ejemplo:
+
+    crea base db1;
+    usa base db1;
+    crea tabla tbl1
+        c1,entero,3,
+        c2,caracter,20,
+        c3,decimal,5.2,
+        c4,fecha;
+
+ejemplo practico:
+
+    crea base escuela;
+    usa base escuela;
+    crea tabla datosAlumno
+        añosAlumno,entero,2,
+        nombreAlumno,caracter,25,
+        promedio,decimal,1,3,
+        fecgaIncripcion,fecha;
+
+despues de eso se creara un archivo.est con esa estructura
+
+osea una un arreglo con los siguientes datos
+
+
+   {[NombreDeCampo,tipoDeCampo,LongitudDeCampo],[NombreDeCampo,tipoDeCampo,LongitudDeCampo],[NombreDeCampo,tipoDeCampo,LongitudDeCampo],[NombreDeCampo,tipoDeCampo,LongitudDeCampo]}
+                    añosAlumno                                nombreAlumno                                   promedio                                 fechaInscripcion
+
+y en el archivo se vera de la siguiente manera
+
+
+    [
+        {
+            "añosAlumno" : "",
+            "nombreAlumno" : "",
+            "promedio" : ""
+            fechaInscripcion : ""
+        }
+    ]
+
+
+    el archivo de .dat estara vacio por defecto y cuando hagamos insercciones se vera
+    de la siguiente manera
+
+    [
+        {
+            "añosAlumno" : "18",
+            "nombreAlumno" : "BRYAN OLIVEROS PEREZ",
+            "promedio" : "9.2"
+            fechaInscripcion : "18/05/98"
+        },
+        {
+            "añosAlumno" : "17",
+            "nombreAlumno" : "AMADEUS OLIVEROS PEREZ",
+            "promedio" : "9.8"
+            fechaInscripcion : "18/05/99"
+        },
+        {
+            "añosAlumno" : "16",
+            "nombreAlumno" : "PATRICIO ESTRELLA",
+            "promedio" : "10"
+            fechaInscripcion : "06/06/06"
+        }
+    ]
+
+    asi seran los unicos archivos que habran dentro  de la carpeta DB a menos de que se creen otras
+    tablas con otros campos y otras estructuras.
+
+
+
+    
