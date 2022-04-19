@@ -15,7 +15,7 @@ def clearConsole():
     os.system(command)
 def helpConsole():
     print('''
-    --COMMANDS 
+    --COMMANDS
     HELP :
     CLEAR :
     EXIT:
