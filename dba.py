@@ -1,7 +1,7 @@
 from ast import Str
 from cmath import e
 from ntpath import join
-import os, sys, time
+import os, sys, time,re
 
 parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
 
@@ -27,24 +27,31 @@ def helpConsole():
 def crearDB():
     try:
         directory = input("Crea base ")
-        path = os.path.join(parent_dir, directory)
-        os.mkdir(path)
+        com = re.findall(";$",directory)
+        if com:
+            directory = directory.replace(";","")
+            path = os.path.join(parent_dir, directory)
+            os.mkdir(path)
+            print("DB created successfully")
+        else:
+            print('DB created fail')
     except OSError:
         print("DB created fail")
-    else:
-        print("DB created successfully")
-
 
 # find new issue, failed deleting paths with roots
 def borrarDB():
     try:
         directory = input('Borra base ')
-        path = os.path.join(parent_dir, directory)
-        os.rmdir(path)
+        com = re.findall(";$",directory)
+        if com:
+            directory = directory.replace(";","")
+            path = os.path.join(parent_dir, directory)
+            os.rmdir(path)
+            print("DB removed successfully")
+        else:
+            print("DB removed fail")
     except OSError:
         print("DB removed fail")
-    else:
-        print("DB removed successfully")
 
 
 def MuestraDB():
@@ -57,11 +64,19 @@ def currentPath():
     print(cP)
 
 def usaDB():
-    DBname = input("Usa base ")
-    path = os.path.join(parent_dir,DBname)
-    os.chdir(path)
-    currentPath()
-    print(f"DB selected {DBname}")
+    try:
+        DBname = input("Usa base ")
+        com = re.findall(";$",DBname)
+        if com:
+            DBname = DBname.replace(";","")
+            path = os.path.join(parent_dir,DBname)
+            os.chdir(path)
+            currentPath()
+            print(f"DB selected {DBname}")
+        else:
+            print("DB moved fail")
+    except OSError:
+        print("DB created fail")
 
 
 # UPDATED
@@ -112,7 +127,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","usa base","exit","muestra bases","crea base","borra base","create","rmcreate","clear","help"]
+    opcion = ["path base","usa base","exit;","muestra bases;","crea base","borra base","create","rmcreate","clear;","help;"]
 
     while not salir:
 
