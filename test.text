@@ -1,10 +1,10 @@
-al momento de que los datos entren al para metro deberan de 
+al momento de que los datos entren al para metro deberan de
 tomarse en cuenta los espacios para que asi puedas separarlos
 con una funcion split().
 
 var = input("ingresa los datos: ").split(',')
 
-ya despues esa variable se almacene en un arreglo de 
+ya despues esa variable se almacene en un arreglo de
 2 posiciones para que al momento de abrir el menu solo acepte
 un espacio..
 
@@ -20,7 +20,7 @@ las consultas.
 
 ----------------------------------------------------------
 
-al momento de crear archivoa tambien te puede ayudar asignando los campos 
+al momento de crear archivoa tambien te puede ayudar asignando los campos
 y la jerarquia de los mismos en la entrada de datos
 
 por ejemplo
@@ -36,8 +36,8 @@ arreglo = [var 1, var 2, var 3 , var 4, var 5]
 crea tabla nombreTabla
 
 se van a crear 2 archivos 1 sera donde al momento de declarar el comando
-'crea tabla' en ese momento pero en un salto de linea estaremos creando la 
-estructura de los campos de nuestra tabla donde podremos colocar los tipos de campo 
+'crea tabla' en ese momento pero en un salto de linea estaremos creando la
+estructura de los campos de nuestra tabla donde podremos colocar los tipos de campo
 que queramos.
 Los tipos de campo son los siguientes
 
