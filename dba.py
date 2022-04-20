@@ -53,15 +53,10 @@ def borrarDB():
     except OSError:
         print("DB removed fail")
 
-
 def MuestraDB():
     dir_list = os.listdir(parent_dir)
     for item in dir_list:
         print(f"DB name: {item}")
-
-def currentPath():
-    cP = os.getcwd()
-    print(cP)
 
 def usaDB():
     try:
@@ -79,26 +74,33 @@ def usaDB():
         print("DB created fail")
 
 
+
+
+
 # UPDATED
 # find new issue, incorrect evaluation in if
-def createFile():
+def createTable():
     try:
-        files = input("Enter de FileName: ").split(',')
+        files = input("Crea tabla ").split(',')
         archivo = list(files)
         path = os.getcwd()
         for item in archivo:
-            file = open(f'/{path}/{item}.dat', "w")
+            dat = open(f'/{path}/{item}.dat', "w")
                     # file.write("Primera línea" + os.linesep)
                     # file.write("Segunda línea")
-            file.close()
+            dat.close()
+            est = open(f'/{path}/{item}.est', "w")
+                # file.write("Primera línea" + os.linesep)
+                # file.write("Segunda línea")
+            est.close()
             print(f'file {item} created successfully')
     except OSError:
         print("file created fail")
 
 # UPDATED UPDATED
-def deleteFile():
+def deleteTable():
     try:
-        files = input("Enter de FileName: ").split(',')
+        files = input("Borra tabla ").split(',')
         archivo = list(files)
         ruta = os.getcwd()
         for item in archivo:
@@ -109,9 +111,30 @@ def deleteFile():
         print("File deleted fail")
 
 
+
+
+
+
+
+
+
+
+
+
+
+def currentPath():
+    cP = os.getcwd()
+    print(cP)
+
+
 def changeDirectorieA():
     os.chdir('..')
     print("Directorie changed successfully")
+
+
+
+
+
 
 
 
@@ -127,7 +150,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","usa base","exit;","muestra bases;","crea base","borra base","create","rmcreate","clear;","help;"]
+    opcion = ["path base","usa base","exit","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help"]
 
     while not salir:
 
@@ -137,16 +160,16 @@ def menu():
             currentPath()
         elif opcion == "usa base":
             usaDB()
-        elif opcion == "muestra bases":
+        elif opcion == "muestra bases;":
             MuestraDB()
         elif opcion == "borra base":
             borrarDB()
         elif opcion == "crea base":
             crearDB()
-        elif opcion == "create":
-            createFile()
-        elif opcion == "rmcreate":
-            deleteFile()
+        elif opcion == "crea tabla":
+            createTable()
+        elif opcion == "borra tabla":
+            deleteTable()
         elif opcion == "clear":
             clearConsole()
         elif opcion == "help":
