@@ -7,6 +7,12 @@ parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion 
 
 #UPDATED AND NEW FUNCTIONS
 
+class own:
+    def __init__(self):
+        self.active = 1
+
+
+obj = own()
 
 def clearConsole():
     command = 'clear'
@@ -34,10 +40,9 @@ def crearDB():
             os.mkdir(path)
             print("DB created successfully")
         else:
-            print('DB created fail')
+            print('; ERROR')
     except OSError:
         print("DB created fail")
-
 # find new issue, failed deleting paths with roots
 def borrarDB():
     try:
@@ -49,7 +54,7 @@ def borrarDB():
             os.rmdir(path)
             print("DB removed successfully")
         else:
-            print("DB removed fail")
+            print("; ERROR")
     except OSError:
         print("DB removed fail")
 
@@ -60,6 +65,7 @@ def MuestraDB():
 
 def usaDB():
     try:
+        obj.active = 2
         DBname = input("Usa base ")
         com = re.findall(";$",DBname)
         if com:
@@ -69,9 +75,9 @@ def usaDB():
             currentPath()
             print(f"DB selected {DBname}")
         else:
-            print("DB moved fail")
+            print("; ERROR")
     except OSError:
-        print("DB created fail")
+        print("DB moved fail")
 
 
 
@@ -81,34 +87,52 @@ def usaDB():
 # find new issue, incorrect evaluation in if
 def createTable():
     try:
-        files = input("Crea tabla ").split(',')
-        archivo = list(files)
-        path = os.getcwd()
-        for item in archivo:
-            dat = open(f'/{path}/{item}.dat', "w")
-                    # file.write("Primera línea" + os.linesep)
-                    # file.write("Segunda línea")
-            dat.close()
-            est = open(f'/{path}/{item}.est', "w")
-                # file.write("Primera línea" + os.linesep)
-                # file.write("Segunda línea")
-            est.close()
-            print(f'file {item} created successfully')
+        if obj.active > 1:
+            files = input("Crea tabla ")
+            com = re.findall(";$",files)
+            files = files.replace(";","")
+            archivo = files.split(",")
+            if com:
+                archivo = list(files)
+                path = os.getcwd()
+                for item in archivo:
+                    dat = open(f'/{path}/{item}.dat', "w")
+                            # file.write("Primera línea" + os.linesep)
+                            # file.write("Segunda línea")
+                    dat.close()
+                    est = open(f'/{path}/{item}.est', "w")
+                        # file.write("Primera línea" + os.linesep)
+                        # file.write("Segunda línea")
+                    est.close()
+                    print(f'file {item} created successfully')
+            else:
+                print("; ERROR")
+        else:
+            print("Select a DB first")
     except OSError:
         print("file created fail")
 
 # UPDATED UPDATED
 def deleteTable():
-    try:
-        files = input("Borra tabla ").split(',')
-        archivo = list(files)
-        ruta = os.getcwd()
-        for item in archivo:
-            path = os.path.join(ruta, item)
-            os.remove(path)
-            print(f"File {item} deleted successfully")
-    except OSError:
-        print("File deleted fail")
+    # try:
+        if obj.active > 1:
+            files = input("Borra tabla ")
+            com = re.findall(";$",files)
+            files = files.replace(";","")
+            archivo = files.split(",")
+            if com:
+                archivo = list(files)
+                ruta = os.getcwd()
+                for item in archivo:
+                    path = os.path.join(ruta, item)
+                    os.remove(path)
+                    print(f"File {item} deleted successfully")
+            else:
+                print("; ERROR")
+        else:
+            print("Select a DB first")
+    # except OSError:
+    #     print("File deleted fail")
 
 
 
@@ -137,7 +161,6 @@ def changeDirectorieA():
 
 
 
-
 def pedirComando():
     correcto = False
     while(not correcto):
@@ -150,7 +173,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","usa base","exit","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help"]
+    opcion = ["path base","usa base","exit;;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help;"]
 
     while not salir:
 
@@ -170,11 +193,11 @@ def menu():
             createTable()
         elif opcion == "borra tabla":
             deleteTable()
-        elif opcion == "clear":
+        elif opcion == "clear;":
             clearConsole()
-        elif opcion == "help":
+        elif opcion == "help;":
             helpConsole()
-        elif opcion == "exit":
+        elif opcion == "exit;":
             salir = True
         else:
             print ("Introduce un comando valido")
