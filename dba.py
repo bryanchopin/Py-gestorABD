@@ -6,7 +6,6 @@ import os, sys, time,re
 parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
 
 #UPDATED AND NEW FUNCTIONS
-
 class own:
     def __init__(self):
         self.active = 1
@@ -97,8 +96,8 @@ def createTable():
                 path = os.getcwd()
                 for item in archivo:
                     dat = open(f'/{path}/{item}.dat', "w")
-                            # file.write("Primera línea" + os.linesep)
-                            # file.write("Segunda línea")
+                    for element in tabla():
+                        dat.write(element + "\n")
                     dat.close()
                     est = open(f'/{path}/{item}.est', "w")
                         # file.write("Primera línea" + os.linesep)
@@ -112,16 +111,32 @@ def createTable():
     except OSError:
         print("file created fail")
 
+campo = []
+
+def tabla():
+      Atributos = input("")
+      com = re.findall(";$",str(Atributos))
+      Atributos = Atributos.replace(";","")
+      Latrib = Atributos.split(",")
+      if len(Latrib) > 3:
+            print("field error")
+      else:
+        campo.append(Latrib)
+        if com:
+          return campo
+        else:
+            tabla()
+
+
 # UPDATED UPDATED
 def deleteTable():
-    # try:
+    try:
         if obj.active > 1:
             files = input("Borra tabla ")
             com = re.findall(";$",files)
             files = files.replace(";","")
             archivo = files.split(",")
             if com:
-                archivo = list(files)
                 ruta = os.getcwd()
                 for item in archivo:
                     path = os.path.join(ruta, item)
@@ -131,8 +146,8 @@ def deleteTable():
                 print("; ERROR")
         else:
             print("Select a DB first")
-    # except OSError:
-    #     print("File deleted fail")
+    except OSError:
+        print("File deleted fail")
 
 
 

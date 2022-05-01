@@ -43,23 +43,23 @@ import json
 
 # ejemplo de uso
 
-x = '''{
-  "name": "John",
-  "age": 30,
-  "married": True,
-  "divorced": False,
-  "children": ("Ann","Billy"),
-  "pets": None,
-  "cars": [
-    {"model": "BMW 230", "mpg": 27.5},
-    {"model": "Ford Edge", "mpg": 24.1}
-  ]
-}'''
+# x = '''{
+#   "name": "John",
+#   "age": 30,
+#   "married": True,
+#   "divorced": False,
+#   "children": ("Ann","Billy"),
+#   "pets": None,
+#   "cars": [
+#     {"model": "BMW 230", "mpg": 27.5},
+#     {"model": "Ford Edge", "mpg": 24.1}
+#   ]
+# }'''
 
 # convert into JSON:
-y = json.load(x)
-# the result is a JSON string:
-print(y)
+# y = json.load(x)
+# # the result is a JSON string:
+# print(y)
 # ppdemos darle formato al resultado
 
 # x = {
