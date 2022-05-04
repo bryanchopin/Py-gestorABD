@@ -6,13 +6,31 @@ import os, sys, time,re
 parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
 
 #UPDATED AND NEW FUNCTIONS
-
 class own:
     def __init__(self):
         self.active = 1
+        self.campo = []
 
-    def back(self):
-        return self.active
+    def tabla():
+      Atributos = input("")
+      com = re.findall(";$",str(Atributos))
+      Atributos = Atributos.replace(";","")
+      Latrib = Atributos.split(",")
+      if len(Latrib) > 3:
+            print("field error")
+      else:
+        obj.campo.append(Latrib)
+        if com:
+          obj.result(obj.campo)
+        else:
+            obj.tabla()
+
+    def result(campos):
+        print(campos)
+        return
+
+
+
 
 obj = own()
 
@@ -90,42 +108,64 @@ def usaDB():
 def createTable():
     try:
         if obj.active > 1:
-            files = input("Crea tabla ").split(',')
-            com = re.findall(";$",files)
-            if com:
-                archivo = list(files)
-                path = os.getcwd()
-                for item in archivo:
-                    dat = open(f'/{path}/{item}.dat', "w")
+
+            files = input("Crea tabla ")
+            # com = re.findall(";$",files)
+            files = files.replace(";","")
+            archivo = files.split(",")
+            # # if com:
+            # archivo = list(files)
+            path = os.getcwd()
+
+
+            Atributos = input("")
+            comm = re.findall(";$",str(Atributos))
+            Atributos = Atributos.replace(";","")
+            Latrib = Atributos.split(",")
+            if len(Latrib) > 3:
+                print("field error")
+            else:
+                obj.campo.append(Latrib)
+                if comm:
+                    print(obj.campo)
+                    for item in archivo:
+                        dat = open(f'/{path}/{item}.dat', "w")
+                        for element in obj.campo:
+                            dat.write(str(element) + "\n")
+                        dat.close()
+                        est = open(f'/{path}/{item}.est', "w")
                             # file.write("Primera línea" + os.linesep)
                             # file.write("Segunda línea")
-                    dat.close()
-                    est = open(f'/{path}/{item}.est', "w")
-                        # file.write("Primera línea" + os.linesep)
-                        # file.write("Segunda línea")
-                    est.close()
-                    print(f'file {item} created successfully')
-            else:
-                print("; ERROR")
+                        est.close()
+                        print(f'file {item} created successfully')
+                else:
+                    print("; error")
         else:
             print("Select a DB first")
     except OSError:
         print("file created fail")
 
+
+
+
 # UPDATED UPDATED
 def deleteTable():
     try:
-        files = input("Borra tabla ").split(',')
-        com = re.findall(";$",files)
-        if com:
-            archivo = list(files)
-            ruta = os.getcwd()
-            for item in archivo:
-                path = os.path.join(ruta, item)
-                os.remove(path)
-                print(f"File {item} deleted successfully")
+        if obj.active > 1:
+            files = input("Borra tabla ")
+            com = re.findall(";$",files)
+            files = files.replace(";","")
+            archivo = files.split(",")
+            if com:
+                ruta = os.getcwd()
+                for item in archivo:
+                    path = os.path.join(ruta, item)
+                    os.remove(path)
+                    print(f"File {item} deleted successfully")
+            else:
+                print("; ERROR")
         else:
-            print("; ERROR")
+            print("Select a DB first")
     except OSError:
         print("File deleted fail")
 

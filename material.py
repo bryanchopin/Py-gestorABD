@@ -12,6 +12,8 @@ def tabla():
       else:
         campo.append(Latrib)
         if com:
-          return campo
+          print (campo)
         else:
             tabla()
+
+tabla()
