@@ -11,28 +11,34 @@ class own:
         self.active = 1
         self.campo = []
 
-    def tabla():
-      Atributos = input("")
-      com = re.findall(";$",str(Atributos))
-      Atributos = Atributos.replace(";","")
-      Latrib = Atributos.split(",")
-      if len(Latrib) > 3:
-            print("field error")
-      else:
+obj = own()
+
+def tabla():
+    Atributos = input("")
+    com = re.findall(";$",str(Atributos))
+    Atributos = Atributos.replace(";","")
+    Latrib = Atributos.split(",")
+    if len(Latrib) > 3:
+        print("field error")
+        obj.campo.clear()
+    else:
         obj.campo.append(Latrib)
         if com:
-          obj.result(obj.campo)
+            print("Fields added")
         else:
-            obj.tabla()
+              tabla()
 
-    def result(campos):
-        print(campos)
-        return
+def write(file,path):
+    dat = open(f'/{path}/{file}.est', "w")
+    for element in obj.campo:
+        dat.write(str(element) + "\n")
+    dat.close()
+    est = open(f'/{path}/{file}.dat', "w")
+    est.close()
+    print(obj.campo)
+    obj.campo.clear()
+    return
 
-
-
-
-obj = own()
 
 def clearConsole():
     command = 'clear'
@@ -83,6 +89,7 @@ def MuestraDB():
     for item in dir_list:
         print(f"DB name: {item}")
 
+
 def usaDB():
     try:
         obj.active = 2
@@ -103,43 +110,16 @@ def usaDB():
 
 
 
-# UPDATED
-# find new issue, incorrect evaluation in if
+
 def createTable():
     try:
         if obj.active > 1:
 
-            files = input("Crea tabla ")
-            # com = re.findall(";$",files)
-            files = files.replace(";","")
-            archivo = files.split(",")
-            # # if com:
-            # archivo = list(files)
+            file = input("Crea tabla ")
             path = os.getcwd()
+            tabla()
+            write(file,path)
 
-
-            Atributos = input("")
-            comm = re.findall(";$",str(Atributos))
-            Atributos = Atributos.replace(";","")
-            Latrib = Atributos.split(",")
-            if len(Latrib) > 3:
-                print("field error")
-            else:
-                obj.campo.append(Latrib)
-                if comm:
-                    print(obj.campo)
-                    for item in archivo:
-                        dat = open(f'/{path}/{item}.dat', "w")
-                        for element in obj.campo:
-                            dat.write(str(element) + "\n")
-                        dat.close()
-                        est = open(f'/{path}/{item}.est', "w")
-                            # file.write("Primera línea" + os.linesep)
-                            # file.write("Segunda línea")
-                        est.close()
-                        print(f'file {item} created successfully')
-                else:
-                    print("; error")
         else:
             print("Select a DB first")
     except OSError:
