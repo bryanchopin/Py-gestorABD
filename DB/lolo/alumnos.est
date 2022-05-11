@@ -1,0 +1,4 @@
+['promedio', 'decimal', '2']
+['edad', 'entero', '2']
+['nombre', 'caracter', '23']
+['sexo', 'caracter', '1']

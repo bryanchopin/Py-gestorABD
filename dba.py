@@ -9,9 +9,36 @@ parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion 
 class own:
     def __init__(self):
         self.active = 1
-
+        self.campo = []
 
 obj = own()
+
+def tabla():
+    Atributos = input("")
+    com = re.findall(";$",str(Atributos))
+    Atributos = Atributos.replace(";","")
+    Latrib = Atributos.split(",")
+    if len(Latrib) > 3:
+        print("field error")
+        obj.campo.clear()
+    else:
+        obj.campo.append(Latrib)
+        if com:
+            print("Fields added")
+        else:
+              tabla()
+
+def write(file,path):
+    dat = open(f'/{path}/{file}.est', "w")
+    for element in obj.campo:
+        dat.write(str(element) + "\n")
+    dat.close()
+    est = open(f'/{path}/{file}.dat', "w")
+    est.close()
+    print(obj.campo)
+    obj.campo.clear()
+    return
+
 
 def clearConsole():
     command = 'clear'
@@ -42,7 +69,7 @@ def crearDB():
             print('; ERROR')
     except OSError:
         print("DB created fail")
-# find new issue, failed deleting paths with roots
+
 def borrarDB():
     try:
         directory = input('Borra base ')
@@ -82,53 +109,22 @@ def usaDB():
 
 
 
-# UPDATED
-# find new issue, incorrect evaluation in if
+
 def createTable():
     try:
         if obj.active > 1:
-            files = input("Crea tabla ")
-            com = re.findall(";$",files)
-            files = files.replace(";","")
-            archivo = files.split(",")
-            if com:
-                archivo = list(files)
-                path = os.getcwd()
-                for item in archivo:
-                    dat = open(f'/{path}/{item}.dat', "w")
-                    for element in tabla():
-                        dat.write(element + "\n")
-                    dat.close()
-                    est = open(f'/{path}/{item}.est', "w")
-                        # file.write("Primera línea" + os.linesep)
-                        # file.write("Segunda línea")
-                    est.close()
-                    print(f'file {item} created successfully')
-            else:
-                print("; ERROR")
+
+            file = input("Crea tabla ")
+            path = os.getcwd()
+            tabla()
+            write(file,path)
+
         else:
             print("Select a DB first")
     except OSError:
         print("file created fail")
 
-campo = []
 
-def tabla():
-      Atributos = input("")
-      com = re.findall(";$",str(Atributos))
-      Atributos = Atributos.replace(";","")
-      Latrib = Atributos.split(",")
-      if len(Latrib) > 3:
-            print("field error")
-      else:
-        campo.append(Latrib)
-        if com:
-          return campo
-        else:
-            tabla()
-
-
-# UPDATED UPDATED
 def deleteTable():
     try:
         if obj.active > 1:
@@ -151,25 +147,13 @@ def deleteTable():
 
 
 
-
-
-
-
-
-
-
-
-
-
 def currentPath():
     cP = os.getcwd()
     print(cP)
 
-
 def changeDirectorieA():
     os.chdir('..')
     print("Directorie changed successfully")
-
 
 
 
