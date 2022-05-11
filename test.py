@@ -69,7 +69,7 @@ def crearDB():
             print('; ERROR')
     except OSError:
         print("DB created fail")
-# find new issue, failed deleting paths with roots
+
 def borrarDB():
     try:
         directory = input('Borra base ')
@@ -88,7 +88,6 @@ def MuestraDB():
     dir_list = os.listdir(parent_dir)
     for item in dir_list:
         print(f"DB name: {item}")
-
 
 def usaDB():
     try:
@@ -126,9 +125,6 @@ def createTable():
         print("file created fail")
 
 
-
-
-# UPDATED UPDATED
 def deleteTable():
     try:
         if obj.active > 1:
@@ -151,25 +147,13 @@ def deleteTable():
 
 
 
-
-
-
-
-
-
-
-
-
-
 def currentPath():
     cP = os.getcwd()
     print(cP)
 
-
 def changeDirectorieA():
     os.chdir('..')
     print("Directorie changed successfully")
-
 
 
 
