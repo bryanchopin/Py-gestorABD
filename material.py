@@ -16,7 +16,6 @@ link = False
 atributo = input("").split(",")
 
 tipos = ["caracter","entero","decimal","fecha"]
-new_list =[]
 
 for x in tipos:
     if atributo[1] == x:

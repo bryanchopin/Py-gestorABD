@@ -8,19 +8,12 @@ parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion 
 #UPDATED AND NEW FUNCTIONS
 class own:
     def __init__(self):
-        self.active = 1
+        self.validarUsebase = 1
         self.campo = []
         self.tipos = ["caracter","entero","decimal","fecha"]
         self.Validartipo = False
 
-        # nombreCampo = obj.nombreCampo()
-        # tipoCampo = obj.tipoCampo()
-        # longitudCampo = obj.longitudCampolongitudCampo()
 
-    # def Insertable():
-    #     nombreCampo = nombreCampo()
-    #     tipoCampo = tipoCampo()
-    #     longitudCampo = longitudCampo()
 
     def nombreCampo(string):
         print("hi im fieldname")
@@ -36,7 +29,17 @@ class own:
         print("hi im lenghtfield")
         return
 
+
+
 obj = own()
+
+
+def validarTabla(Atributos):
+    for x in obj.tipos:
+        if Atributos[1] == x:
+            obj.Validartipo = True
+    return
+
 
 def tabla():
 
@@ -45,22 +48,27 @@ def tabla():
     Atributos = Atributos.replace(";","")
     Latrib = Atributos.split(",")
 
-    for x in obj.tipos:
-        if Atributos[1] == x:
-            obj.Validartipo = True
 
-    if not len(Latrib) == 3 and not obj.Validartipo:
-        print("field error")
-        obj.campo.clear()
-    else:
+    validarTabla(Latrib)
+
+
+    if len(Latrib) == 3 and obj.Validartipo:
         obj.campo.append(Latrib)
         if com:
+            obj.Validartipo = False
             print("Fields added")
-            obj.nombreCampo()
-            obj.tipoCampo()
-            obj.longitudCampo()
+
         else:
+              obj.Validartipo = False
               tabla()
+    else:
+        print("field error")
+        print(obj.Validartipo)
+        obj.campo.clear()
+
+    return
+
+
 
 def write(file,path):
     dat = open(f'/{path}/{file}.est', "w")
@@ -125,7 +133,7 @@ def MuestraDB():
 
 def usaDB():
     try:
-        obj.active = 2
+        obj.validarUsebase = 2
         DBname = input("Usa base ")
         com = re.findall(";$",DBname)
         if com:
@@ -146,7 +154,7 @@ def usaDB():
 
 def createTable():
     try:
-        if obj.active > 1:
+        if obj.validarUsebase > 1:
 
             file = input("Crea tabla ")
             path = os.getcwd()
@@ -161,7 +169,7 @@ def createTable():
 
 def deleteTable():
     try:
-        if obj.active > 1:
+        if obj.validarUsebase > 1:
             files = input("Borra tabla ")
             com = re.findall(";$",files)
             files = files.replace(";","")
