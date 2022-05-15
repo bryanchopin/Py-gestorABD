@@ -14,13 +14,11 @@ class own:
         self.Validartipo = False
 
 
-
     def nombreCampo(string):
         print("hi im fieldname")
         return
 
     def tipoCampo(tipo):
-        tipos = ["caracter","entero","decimal","fecha"]
         print("hi im fielType")
 
         return
@@ -41,29 +39,26 @@ def validarTabla(Atributos):
     return
 
 
-def tabla():
+def tabla(file,path):
 
     Atributos = input("")
     com = re.findall(";$",str(Atributos))
     Atributos = Atributos.replace(";","")
     Latrib = Atributos.split(",")
 
-
     validarTabla(Latrib)
-
 
     if len(Latrib) == 3 and obj.Validartipo:
         obj.campo.append(Latrib)
         if com:
+            write(file,path)
             obj.Validartipo = False
             print("Fields added")
-
         else:
               obj.Validartipo = False
-              tabla()
+              tabla(file,path)
     else:
-        print("field error")
-        print(obj.Validartipo)
+        print("Syntax Error")
         obj.campo.clear()
 
     return
@@ -112,6 +107,7 @@ def crearDB():
     except OSError:
         print("DB created fail")
 
+
 def borrarDB():
     try:
         directory = input('Borra base ')
@@ -150,16 +146,13 @@ def usaDB():
 
 
 
-
-
 def createTable():
     try:
         if obj.validarUsebase > 1:
 
             file = input("Crea tabla ")
             path = os.getcwd()
-            tabla()
-            write(file,path)
+            tabla(file,path)
 
         else:
             print("Select a DB first")
