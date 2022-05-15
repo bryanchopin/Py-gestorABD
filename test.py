@@ -10,21 +10,55 @@ class own:
     def __init__(self):
         self.active = 1
         self.campo = []
+        self.tipos = ["caracter","entero","decimal","fecha"]
+        self.Validartipo = False
+
+        # nombreCampo = obj.nombreCampo()
+        # tipoCampo = obj.tipoCampo()
+        # longitudCampo = obj.longitudCampolongitudCampo()
+
+    # def Insertable():
+    #     nombreCampo = nombreCampo()
+    #     tipoCampo = tipoCampo()
+    #     longitudCampo = longitudCampo()
+
+    def nombreCampo(string):
+        print("hi im fieldname")
+        return
+
+    def tipoCampo(tipo):
+        tipos = ["caracter","entero","decimal","fecha"]
+        print("hi im fielType")
+
+        return
+
+    def longitudCampo(string):
+        print("hi im lenghtfield")
+        return
 
 obj = own()
 
 def tabla():
+
     Atributos = input("")
     com = re.findall(";$",str(Atributos))
     Atributos = Atributos.replace(";","")
     Latrib = Atributos.split(",")
-    if len(Latrib) > 3:
+
+    for x in obj.tipos:
+        if Atributos[1] == x:
+            obj.Validartipo = True
+
+    if not len(Latrib) == 3 and not obj.Validartipo:
         print("field error")
         obj.campo.clear()
     else:
         obj.campo.append(Latrib)
         if com:
             print("Fields added")
+            obj.nombreCampo()
+            obj.tipoCampo()
+            obj.longitudCampo()
         else:
               tabla()
 
@@ -135,8 +169,10 @@ def deleteTable():
             if com:
                 ruta = os.getcwd()
                 for item in archivo:
-                    path = os.path.join(ruta, item)
-                    os.remove(path)
+                    path1 = os.path.join(ruta, item + ".dat")
+                    path2 = os.path.join(ruta, item + ".est")
+                    os.remove(path1)
+                    os.remove(path2)
                     print(f"File {item} deleted successfully")
             else:
                 print("; ERROR")
@@ -172,7 +208,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","usa base","exit;;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help;"]
+    opcion = ["path base","usa base","exit;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help;"]
 
     while not salir:
 
