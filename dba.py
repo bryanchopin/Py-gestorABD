@@ -8,25 +8,62 @@ parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion 
 #UPDATED AND NEW FUNCTIONS
 class own:
     def __init__(self):
-        self.active = 1
+        self.validarUsebase = 1
         self.campo = []
+        self.tipos = ["caracter","entero","decimal","fecha"]
+        self.Validartipo = False
+
+
+    def nombreCampo(string):
+        print("hi im fieldname")
+        return
+
+    def tipoCampo(tipo):
+        print("hi im fielType")
+
+        return
+
+    def longitudCampo(string):
+        print("hi im lenghtfield")
+        return
+
+
 
 obj = own()
 
-def tabla():
+
+def validarTabla(Atributos):
+    for x in obj.tipos:
+        if Atributos[1] == x:
+            obj.Validartipo = True
+    return
+
+
+def tabla(file,path):
+
     Atributos = input("")
     com = re.findall(";$",str(Atributos))
     Atributos = Atributos.replace(";","")
     Latrib = Atributos.split(",")
-    if len(Latrib) > 3:
-        print("field error")
-        obj.campo.clear()
-    else:
+
+    validarTabla(Latrib)
+
+    if len(Latrib) == 3 and obj.Validartipo:
         obj.campo.append(Latrib)
         if com:
+            write(file,path)
+            obj.Validartipo = False
             print("Fields added")
         else:
-              tabla()
+              obj.Validartipo = False
+              tabla(file,path)
+    else:
+        print("Syntax Error")
+        obj.campo.clear()
+
+    return
+
+
 
 def write(file,path):
     dat = open(f'/{path}/{file}.est', "w")
@@ -70,6 +107,7 @@ def crearDB():
     except OSError:
         print("DB created fail")
 
+
 def borrarDB():
     try:
         directory = input('Borra base ')
@@ -91,7 +129,7 @@ def MuestraDB():
 
 def usaDB():
     try:
-        obj.active = 2
+        obj.validarUsebase = 2
         DBname = input("Usa base ")
         com = re.findall(";$",DBname)
         if com:
@@ -108,16 +146,13 @@ def usaDB():
 
 
 
-
-
 def createTable():
     try:
-        if obj.active > 1:
+        if obj.validarUsebase > 1:
 
             file = input("Crea tabla ")
             path = os.getcwd()
-            tabla()
-            write(file,path)
+            tabla(file,path)
 
         else:
             print("Select a DB first")
@@ -127,7 +162,7 @@ def createTable():
 
 def deleteTable():
     try:
-        if obj.active > 1:
+        if obj.validarUsebase > 1:
             files = input("Borra tabla ")
             com = re.findall(";$",files)
             files = files.replace(";","")
@@ -135,8 +170,10 @@ def deleteTable():
             if com:
                 ruta = os.getcwd()
                 for item in archivo:
-                    path = os.path.join(ruta, item)
-                    os.remove(path)
+                    path1 = os.path.join(ruta, item + ".dat")
+                    path2 = os.path.join(ruta, item + ".est")
+                    os.remove(path1)
+                    os.remove(path2)
                     print(f"File {item} deleted successfully")
             else:
                 print("; ERROR")
@@ -172,7 +209,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","usa base","exit;;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help;"]
+    opcion = ["path base","usa base","exit;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help;"]
 
     while not salir:
 
