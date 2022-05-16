@@ -5,7 +5,7 @@ import os, sys, time,re
 
 parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
 
-#UPDATED AND NEW FUNCTIONS
+
 class own:
     def __init__(self):
         self.validarUsebase = 1
@@ -142,8 +142,6 @@ def usaDB():
             print("; ERROR")
     except OSError:
         print("DB moved fail")
-
-
 
 
 def createTable():
