@@ -35,6 +35,9 @@ class own:
 obj = own()
 
 
+
+
+
 def validarTabla(Atributos):
     try:
         #validando los tipos de campo
@@ -52,8 +55,6 @@ def validarTabla(Atributos):
         return
     except:
         print("Field error")
-
-
 
 def tabla(file,path):
 
@@ -105,6 +106,9 @@ def write(file,path):
     return
 
 
+
+
+
 def clearConsole():
     command = 'clear'
     if os.name in ('nt', 'dos'):
@@ -119,6 +123,10 @@ def helpConsole():
     CREA BASE:
     BORRA BASE:
 ''')
+
+
+
+
 
 def crearDB():
     try:
@@ -172,6 +180,8 @@ def usaDB():
 
 
 
+
+
 def createTable():
     try:
         if obj.validarUsebase > 1:
@@ -206,6 +216,8 @@ def deleteTable():
             print("Select a DB first")
     except OSError:
         print("File deleted fail")
+
+
 
 
 
