@@ -33,10 +33,14 @@ obj = own()
 
 
 def validarTabla(Atributos):
-    for x in obj.tipos:
-        if Atributos[1] == x:
-            obj.Validartipo = True
-    return
+    try:
+        for x in obj.tipos:
+            if Atributos[1] == x:
+                obj.Validartipo = True
+        return
+    except:
+        print("Invalid Format")
+
 
 
 def tabla(file,path):
@@ -107,7 +111,6 @@ def crearDB():
     except OSError:
         print("DB created fail")
 
-
 def borrarDB():
     try:
         directory = input('Borra base ')
@@ -157,7 +160,7 @@ def createTable():
     except OSError:
         print("file created fail")
 
-
+#found issue
 def deleteTable():
     try:
         if obj.validarUsebase > 1:

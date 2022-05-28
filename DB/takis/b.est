@@ -1,0 +1,5 @@
+['a', 'decimal', '12']
+['a', 'caracter', '12']
+['n', 'entero', '12']
+['fecha', 'fecha', '12']
+['entero', 'entero', '12']
