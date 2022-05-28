@@ -1,17 +1,21 @@
 from ast import Str
 from cmath import e
+from curses.ascii import isalnum, isdigit
+import errno
 from ntpath import join
 import os, sys, time,re
 
 parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
 
-
+#UPDATED AND NEW FUNCTIONS
 class own:
     def __init__(self):
         self.validarUsebase = 1
         self.campo = []
         self.tipos = ["caracter","entero","decimal","fecha"]
         self.Validartipo = False
+        self.validarLongitud = False
+        self.validarLenght = False
 
 
     def nombreCampo(string):
@@ -20,7 +24,6 @@ class own:
 
     def tipoCampo(tipo):
         print("hi im fielType")
-
         return
 
     def longitudCampo(string):
@@ -34,38 +37,59 @@ obj = own()
 
 def validarTabla(Atributos):
     try:
+        #validando los tipos de campo
         for x in obj.tipos:
             if Atributos[1] == x:
                 obj.Validartipo = True
+
+        # validando si la longitud en un entero
+        if str.isdigit(Atributos[2]):
+            obj.validarLongitud = True
+
+        if '.' in Atributos[2]:
+            Atributos[2] = float(Atributos[2])
+            obj.validarLongitud = True
         return
     except:
-        print("Invalid Format")
+        print("Field error")
 
 
 
 def tabla(file,path):
 
-    Atributos = input("")
-    com = re.findall(";$",str(Atributos))
-    Atributos = Atributos.replace(";","")
-    Latrib = Atributos.split(",")
+    try:
+        Atributos = input("")
+        com = re.findall(";$",str(Atributos))
+        Atributos = Atributos.replace(";","")
+        Latrib = Atributos.split(",")
 
-    validarTabla(Latrib)
 
-    if len(Latrib) == 3 and obj.Validartipo:
-        obj.campo.append(Latrib)
-        if com:
-            write(file,path)
-            obj.Validartipo = False
-            print("Fields added")
+        if len(Latrib) == 3:
+            obj.validarLenght = True
+
+        validarTabla(Latrib)
+
+
+
+        if obj.validarLenght and obj.Validartipo and obj.validarLongitud:
+            obj.campo.append(Latrib)
+            if com:
+                write(file,path)
+                obj.Validartipo = False
+                obj.validarLongitud = False
+
+                print("Fields added")
+            else:
+                obj.Validartipo = False
+                obj.validarLongitud = False
+                tabla(file,path)
         else:
-              obj.Validartipo = False
-              tabla(file,path)
-    else:
-        print("Syntax Error")
-        obj.campo.clear()
+            print("Syntax Error")
+            obj.campo.clear()
+        return
 
-    return
+    except:
+        print("error founded")
 
 
 
@@ -95,7 +119,6 @@ def helpConsole():
     CREA BASE:
     BORRA BASE:
 ''')
-
 
 def crearDB():
     try:
@@ -147,6 +170,8 @@ def usaDB():
         print("DB moved fail")
 
 
+
+
 def createTable():
     try:
         if obj.validarUsebase > 1:
@@ -160,7 +185,6 @@ def createTable():
     except OSError:
         print("file created fail")
 
-#found issue
 def deleteTable():
     try:
         if obj.validarUsebase > 1:

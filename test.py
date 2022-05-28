@@ -67,13 +67,6 @@ def tabla(file,path):
         if len(Latrib) == 3:
             obj.validarLenght = True
 
-        # if len(Latrib[2]) > 2:
-
-        #     print("here")
-        #     print(Latrib[2])
-        #     print(len(Latrib[2]))
-        #     print(type(Latrib[2]))
-
         validarTabla(Latrib)
 
 
