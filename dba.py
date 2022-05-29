@@ -1,13 +1,13 @@
 from ast import Str
 from cmath import e
-from curses.ascii import isalnum, isdigit
-import errno
 from ntpath import join
 import os, sys, time,re
+import shutil
+
 
 # parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
 cP = os.getcwd()
-parent_dir = cP
+parent_dir = cP + "/DB"
 
 #UPDATED AND NEW FUNCTIONS
 class own:
@@ -65,10 +65,6 @@ def tabla(file,path):
         com = re.findall(";$",str(Atributos))
         Atributos = Atributos.replace(";","")
         Latrib = Atributos.split(",")
-
-
-
-
 
         if len(Latrib) == 3:
             obj.validarLenght = True
@@ -155,7 +151,7 @@ def borrarDB():
         if com:
             directory = directory.replace(";","")
             path = os.path.join(parent_dir, directory)
-            os.rmdir(path)
+            shutil.rmtree(path)
             print("DB removed successfully")
         else:
             print("; ERROR")
@@ -240,8 +236,20 @@ def showTables():
     try:
         if obj.validarUsebase:
             cP = os.getcwd()
+            ls = os.listdir(cP)
 
-            print("Directories:",os.listdir(cP))
+            for x in ls:
+                if ".est" in x:
+                    tabla = x
+
+                    f = open(x,"r")
+
+                    for line in f:
+                        campo = line
+                    f.close
+
+                    print(tabla + " --> " + campo)
+
         else:
             print("Select a DB First")
     except:
