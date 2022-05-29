@@ -241,14 +241,14 @@ def showTables():
             for x in ls:
                 if ".est" in x:
                     tabla = x
+                    print(tabla + " --> ")
 
                     f = open(x,"r")
 
                     for line in f:
-                        campo = line
+                        print("\t" + line)
                     f.close
 
-                    print(tabla + " --> " + campo)
 
         else:
             print("Select a DB First")
