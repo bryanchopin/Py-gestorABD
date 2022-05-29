@@ -5,7 +5,9 @@ import errno
 from ntpath import join
 import os, sys, time,re
 
-parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
+# parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
+cP = os.getcwd()
+parent_dir = cP
 
 #UPDATED AND NEW FUNCTIONS
 class own:
@@ -16,6 +18,7 @@ class own:
         self.validarLongitud = False
         self.validarLenght = False
         self.validarUsebase = False
+        self.fileExist = False
 
     def nombreCampo(string):
         print("hi im fieldname")
@@ -188,10 +191,24 @@ def createTable():
     try:
         if obj.validarUsebase:
 
-            file = input("Crea tabla ")
-            path = os.getcwd()
-            tabla(file,path)
+            cP = os.getcwd()
+            lista = os.listdir(cP)
 
+            file = input("Crea tabla ")
+
+            for files in lista:
+                files = files.replace(".dat","")
+                files = files.replace(".est","")
+
+                if file == files:
+                    obj.fileExist = True
+
+            if not obj.fileExist:
+                path = os.getcwd()
+                tabla(file,path)
+            else:
+                print("File Exist")
+                obj.fileExist = False
         else:
             print("Select a DB first")
     except OSError:
