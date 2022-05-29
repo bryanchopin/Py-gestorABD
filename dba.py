@@ -10,13 +10,12 @@ parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion 
 #UPDATED AND NEW FUNCTIONS
 class own:
     def __init__(self):
-        self.validarUsebase = False
         self.campo = []
         self.tipos = ["caracter","entero","decimal","fecha"]
         self.Validartipo = False
         self.validarLongitud = False
         self.validarLenght = False
-
+        self.validarUsebase = False
 
     def nombreCampo(string):
         print("hi im fieldname")
@@ -65,12 +64,16 @@ def tabla(file,path):
         Latrib = Atributos.split(",")
 
 
+
+
+
         if len(Latrib) == 3:
             obj.validarLenght = True
 
         validarTabla(Latrib)
 
-
+        if Latrib[2] == obj.tipos[3]:
+            com =True
 
         if obj.validarLenght and obj.Validartipo and obj.validarLongitud:
             obj.campo.append(Latrib)
@@ -177,8 +180,6 @@ def usaDB():
             obj.validarUsebase = False
     except OSError:
         print("DB moved fail")
-
-
 
 
 
