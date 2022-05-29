@@ -10,7 +10,7 @@ parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion 
 #UPDATED AND NEW FUNCTIONS
 class own:
     def __init__(self):
-        self.validarUsebase = 1
+        self.validarUsebase = False
         self.campo = []
         self.tipos = ["caracter","entero","decimal","fecha"]
         self.Validartipo = False
@@ -163,7 +163,7 @@ def MuestraDB():
 
 def usaDB():
     try:
-        obj.validarUsebase = 2
+        obj.validarUsebase = True
         DBname = input("Usa base ")
         com = re.findall(";$",DBname)
         if com:
@@ -174,6 +174,7 @@ def usaDB():
             print(f"DB selected {DBname}")
         else:
             print("; ERROR")
+            obj.validarUsebase = False
     except OSError:
         print("DB moved fail")
 
@@ -184,7 +185,7 @@ def usaDB():
 
 def createTable():
     try:
-        if obj.validarUsebase > 1:
+        if obj.validarUsebase:
 
             file = input("Crea tabla ")
             path = os.getcwd()
@@ -197,7 +198,7 @@ def createTable():
 
 def deleteTable():
     try:
-        if obj.validarUsebase > 1:
+        if obj.validarUsebase:
             files = input("Borra tabla ")
             com = re.findall(";$",files)
             files = files.replace(";","")
@@ -217,6 +218,16 @@ def deleteTable():
     except OSError:
         print("File deleted fail")
 
+def showTables():
+    try:
+        if obj.validarUsebase:
+            cP = os.getcwd()
+
+            print("Directories:",os.listdir(cP))
+        else:
+            print("Select a DB First")
+    except:
+        print("Something wrong happened")
 
 
 
@@ -246,7 +257,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","usa base","exit;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help;"]
+    opcion = ["path base","usa base","exit;","muestra tablas;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help;"]
 
     while not salir:
 
@@ -266,6 +277,8 @@ def menu():
             createTable()
         elif opcion == "borra tabla":
             deleteTable()
+        elif opcion == "muestra tablas;":
+            showTables()
         elif opcion == "clear;":
             clearConsole()
         elif opcion == "help;":
