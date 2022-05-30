@@ -4,4 +4,4 @@
 ['h', 'entero', 3.4]
 ['12', 'entero', '23']
 ['entero', 'entero', '23']
-['entero', 'entero', 3.4]
+['entero', 'entero', 3.4]['nombre', 'caracter', '23']

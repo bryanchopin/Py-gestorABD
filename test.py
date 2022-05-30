@@ -263,7 +263,7 @@ def usaDB():
 
 
 def insertTable():
-    # try:
+    try:
         if obj.validarUsebase:
 
             cP = os.getcwd()
@@ -309,8 +309,8 @@ def insertTable():
                 print("File Not Exist")
         else:
             print("Select DB first")
-    # except:
-    #     print("Something Wrong Happened")
+    except:
+        print("Something Wrong Happened")
 
 
 
@@ -500,8 +500,8 @@ def menu():
             addTableField()
         elif opcion == "borra campo":
             deleteTableField()
-        elif opcion == "inserta en":
-            insertTable()
+        # elif opcion == "inserta en":
+        #     insertTable()
         elif opcion == "clear;":
             clearConsole()
         elif opcion == "help;":
