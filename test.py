@@ -1,5 +1,6 @@
 from ast import Str
 from cmath import e
+from dataclasses import field
 from ntpath import join
 import os, sys, time,re
 import shutil
@@ -20,6 +21,7 @@ class own:
         self.validarUsebase = False
         self.fileExist = False
         self.addField = False
+
 
     def nombreCampo(string):
         print("hi im fieldname")
@@ -85,6 +87,7 @@ def tabla(file,path):
                     obj.Validartipo = False
                     obj.validarLongitud = False
                     obj.addField = False
+
                 else:
                     write(file,path)
                     obj.Validartipo = False
@@ -117,8 +120,6 @@ def write(file,path):
     return
 
 def addWrite(file,path):
-
-
     path = f'/{path}/{file}.est'
     dat = open( path, "a")
 
@@ -134,7 +135,25 @@ def addWrite(file,path):
 
     return
 
+def deleteWrite(file,path,field):
+    path = f'/{path}/{file}.est'
+    dat = open( path, "r")
+    lines = dat.readlines()
+    dat.close()
 
+    del lines[int(field) - 1]
+
+    new_file = open(path, "w+")
+    for line in lines:
+        new_file.write(line)
+
+    new_file.close()
+    dat.close()
+
+    obj.campo.clear()
+    obj.addField = False
+
+    return
 
 
 def clearConsole():
@@ -265,8 +284,10 @@ def showTables():
         if obj.validarUsebase:
             cP = os.getcwd()
             ls = os.listdir(cP)
+            n = 0
 
             for x in ls:
+
                 if ".est" in x:
                     tabla = x
                     print(tabla + " --> ")
@@ -274,7 +295,8 @@ def showTables():
                     f = open(x,"r")
 
                     for line in f:
-                        print("\t" + line)
+                        n = n + 1
+                        print(f'C{n} ' + "\t" + line)
                     f.close
 
         else:
@@ -310,16 +332,35 @@ def addTableField():
         print("Fuck idk")
 
 def deleteTableField():
-    try:
+    # try:
         if obj.validarUsebase:
-            file = input("Borra campo ")
-            path = os.getcwd()
-            tabla(file,path)
 
+            cP = os.getcwd()
+            lista = os.listdir(cP)
+
+
+            file = input("Borra Campo ")
+
+            for files in lista:
+                if file + ".est" in  files:
+                    obj.fileExist = True
+
+            if obj.fileExist:
+                field = input("")
+                com = re.findall(";$",field)
+                field = field.replace(";","")
+
+                if com:
+                    deleteWrite(file,cP,field)
+                    obj.fileExist = False
+                else:
+                    print("; ERROR")
+            else:
+                print("File Not Exist")
         else:
             print("Select DB first")
-    except:
-        print("Fuck idk")
+    # except:
+    #     print("Fuck idk")
 
 
 
