@@ -71,8 +71,8 @@ def tabla(file,path):
 
         validarTabla(Latrib)
 
-        if Latrib[2] == obj.tipos[3]:
-            com =True
+        # if Latrib[2] == obj.tipos[3]:
+        #     com =True
 
         if obj.validarLenght and obj.Validartipo and obj.validarLongitud:
             obj.campo.append(Latrib)
