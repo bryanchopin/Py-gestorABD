@@ -51,8 +51,13 @@ def validarTabla(Atributos):
         if str.isdigit(Atributos[2]):
             obj.validarLongitud = True
 
+        # validando si la longitud en un Float
         if '.' in Atributos[2]:
             Atributos[2] = float(Atributos[2])
+            obj.validarLongitud = True
+
+        if Atributos[1] == obj.tipos[3]:
+            obj.validarLenght = True
             obj.validarLongitud = True
         return
     except:
@@ -69,10 +74,11 @@ def tabla(file,path):
         if len(Latrib) == 3:
             obj.validarLenght = True
 
+
+
         validarTabla(Latrib)
 
-        # if Latrib[2] == obj.tipos[3]:
-        #     com =True
+
 
         if obj.validarLenght and obj.Validartipo and obj.validarLongitud:
             obj.campo.append(Latrib)
@@ -116,6 +122,7 @@ def clearConsole():
     if os.name in ('nt', 'dos'):
         command = 'clear'
     os.system(command)
+
 def helpConsole():
     print('''
     --COMMANDS
@@ -125,7 +132,6 @@ def helpConsole():
     CREA BASE:
     BORRA BASE:
 ''')
-
 
 
 

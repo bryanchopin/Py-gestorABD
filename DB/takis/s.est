@@ -1,0 +1,3 @@
+['a', 'entero', '12']
+['a', 'decimal', '12']
+['a', 'caracter', 1.2]
