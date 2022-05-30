@@ -37,23 +37,31 @@ class own:
 obj = own()
 
 
-
-
-
 def validarTabla(Atributos):
     try:
+        #validando los espacios de la query
+        if len(Atributos) == 3:
+            obj.validarLenght = True
+
         #validando los tipos de campo
         for x in obj.tipos:
             if Atributos[1] == x:
                 obj.Validartipo = True
 
-        # validando si la longitud en un entero
-        if str.isdigit(Atributos[2]):
+        if Atributos[1] == obj.tipos[3]:
+            obj.validarLenght = True
             obj.validarLongitud = True
 
-        if '.' in Atributos[2]:
+        # validando si la longitud en un entero
+        elif str.isdigit(Atributos[2]):
+            obj.validarLongitud = True
+
+        # validando si la longitud en un Float
+        elif '.' in Atributos[2]:
             Atributos[2] = float(Atributos[2])
             obj.validarLongitud = True
+
+
         return
     except:
         print("Field error")
@@ -66,13 +74,7 @@ def tabla(file,path):
         Atributos = Atributos.replace(";","")
         Latrib = Atributos.split(",")
 
-        if len(Latrib) == 3:
-            obj.validarLenght = True
-
         validarTabla(Latrib)
-
-        # if Latrib[2] == obj.tipos[3]:
-        #     com =True
 
         if obj.validarLenght and obj.Validartipo and obj.validarLongitud:
             obj.campo.append(Latrib)
@@ -116,6 +118,7 @@ def clearConsole():
     if os.name in ('nt', 'dos'):
         command = 'clear'
     os.system(command)
+
 def helpConsole():
     print('''
     --COMMANDS
@@ -125,7 +128,6 @@ def helpConsole():
     CREA BASE:
     BORRA BASE:
 ''')
-
 
 
 

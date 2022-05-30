@@ -37,28 +37,31 @@ class own:
 obj = own()
 
 
-
-
-
 def validarTabla(Atributos):
     try:
+        #validando los espacios de la query
+        if len(Atributos) == 3:
+            obj.validarLenght = True
+
         #validando los tipos de campo
         for x in obj.tipos:
             if Atributos[1] == x:
                 obj.Validartipo = True
 
-        # validando si la longitud en un entero
-        if str.isdigit(Atributos[2]):
-            obj.validarLongitud = True
-
-        # validando si la longitud en un Float
-        if '.' in Atributos[2]:
-            Atributos[2] = float(Atributos[2])
-            obj.validarLongitud = True
-
         if Atributos[1] == obj.tipos[3]:
             obj.validarLenght = True
             obj.validarLongitud = True
+
+        # validando si la longitud en un entero
+        elif str.isdigit(Atributos[2]):
+            obj.validarLongitud = True
+
+        # validando si la longitud en un Float
+        elif '.' in Atributos[2]:
+            Atributos[2] = float(Atributos[2])
+            obj.validarLongitud = True
+
+
         return
     except:
         print("Field error")
@@ -71,14 +74,7 @@ def tabla(file,path):
         Atributos = Atributos.replace(";","")
         Latrib = Atributos.split(",")
 
-        if len(Latrib) == 3:
-            obj.validarLenght = True
-
-
-
         validarTabla(Latrib)
-
-
 
         if obj.validarLenght and obj.Validartipo and obj.validarLongitud:
             obj.campo.append(Latrib)
