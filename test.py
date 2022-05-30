@@ -3,7 +3,7 @@ from cmath import e
 from dataclasses import field
 from ntpath import join
 import os, sys, time,re
-import shutil
+import shutil,linecache
 
 
 # parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
@@ -21,6 +21,9 @@ class own:
         self.validarUsebase = False
         self.fileExist = False
         self.addField = False
+
+        self.validarFieldType = False
+        self.validarFieldLen = False
 
 
     def nombreCampo(string):
@@ -106,7 +109,29 @@ def tabla(file,path):
     except:
         print("error founded")
 
+def validarCampos(atributos,field):
+    try:
+        # longitud = len(atributos)
 
+        for x in atributos:
+            x = str(x).split(",")
+            for y in x:
+                characters = "'[] "
+                for z in range(len(characters)):
+                    y = y.replace(characters[z],"")
+                # print(y)
+
+            if type(field) == type(x[1]):
+                obj.validarFieldType = True
+            else:
+                print("Not Type Field")
+            if len(field) <= len(x[2]):
+                obj.validarFieldLen = True
+            else:
+                print("Not Type Length")
+
+    except:
+        print("some")
 
 def write(file,path):
     dat = open(f'/{path}/{file}.est', "w")
@@ -155,22 +180,15 @@ def deleteWrite(file,path,field):
 
     return
 
-def InsertWrite(file,path):
-    path = f'/{path}/{file}.est'
+def InsertWrite(file,path,field):
+
+    path = f'/{path}/{file}.dat'
     dat = open( path, "a")
-
-    for element in obj.campo:
+    for element in field:
         dat.write(str(element) + "\n")
-
     dat.close()
 
-
-    print(obj.campo)
-    obj.campo.clear()
-    obj.addField = False
-
     return
-
 
 def clearConsole():
     command = 'clear'
@@ -245,7 +263,7 @@ def usaDB():
 
 
 def insertTable():
-    try:
+    # try:
         if obj.validarUsebase:
 
             cP = os.getcwd()
@@ -255,20 +273,44 @@ def insertTable():
             obj.addField = True
             file = input("Inserta en ")
 
+            line = linecache.getlines(file + ".est")
+
 
             for files in lista:
                 if file + ".dat" in  files:
                     obj.fileExist = True
 
+
             if obj.fileExist:
-                InsertWrite(file,cP,field)
-                obj.fileExist = False
+                n = 0
+                for x in lista:
+                    if file + ".est" in x:
+                        tabla = x
+                        print(tabla + " --> ")
+
+                        f = open(x,"r")
+                        for line in f:
+                            n = n + 1
+                            print(f'C{n} ' + "\t" + line + "\n")
+                        f.close
+                        field = input(" ")
+
+                        validarCampos(line,field)
+
+                        n = 0
+
+                        if obj.validarFieldType & obj.validarFieldLen:
+                            InsertWrite(file,cP,field)
+                            obj.fileExist = False
+
+                        else:
+                            print("Error Founded")
             else:
                 print("File Not Exist")
         else:
             print("Select DB first")
-    except:
-        print("Something Wrong Happened")
+    # except:
+    #     print("Something Wrong Happened")
 
 
 
@@ -340,6 +382,7 @@ def showTables():
                         n = n + 1
                         print(f'C{n} ' + "\t" + line)
                     f.close
+                    n = 0
 
         else:
             print("Select a DB First")
@@ -388,7 +431,7 @@ def deleteTableField():
                     obj.fileExist = True
 
             if obj.fileExist:
-                field = input("")
+                field = input(" ")
                 com = re.findall(";$",field)
                 field = field.replace(";","")
 
