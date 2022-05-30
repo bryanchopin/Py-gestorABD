@@ -1,22 +1,24 @@
 from ast import Str
 from cmath import e
-from curses.ascii import isalnum, isdigit
-import errno
 from ntpath import join
 import os, sys, time,re
+import shutil
 
-parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
+
+# parent_dir = "/Users/akisechopen/Desktop/UNIVERSIDAD/10 semestre/administracion de bases de datos/proyecto ABD/DB/"
+cP = os.getcwd()
+parent_dir = cP + "/DB"
 
 #UPDATED AND NEW FUNCTIONS
 class own:
     def __init__(self):
-        self.validarUsebase = False
         self.campo = []
         self.tipos = ["caracter","entero","decimal","fecha"]
         self.Validartipo = False
         self.validarLongitud = False
         self.validarLenght = False
-
+        self.validarUsebase = False
+        self.fileExist = False
 
     def nombreCampo(string):
         print("hi im fieldname")
@@ -64,13 +66,13 @@ def tabla(file,path):
         Atributos = Atributos.replace(";","")
         Latrib = Atributos.split(",")
 
-
         if len(Latrib) == 3:
             obj.validarLenght = True
 
         validarTabla(Latrib)
 
-
+        # if Latrib[2] == obj.tipos[3]:
+        #     com =True
 
         if obj.validarLenght and obj.Validartipo and obj.validarLongitud:
             obj.campo.append(Latrib)
@@ -149,7 +151,7 @@ def borrarDB():
         if com:
             directory = directory.replace(";","")
             path = os.path.join(parent_dir, directory)
-            os.rmdir(path)
+            shutil.rmtree(path)
             print("DB removed successfully")
         else:
             print("; ERROR")
@@ -181,16 +183,28 @@ def usaDB():
 
 
 
-
-
 def createTable():
     try:
         if obj.validarUsebase:
 
-            file = input("Crea tabla ")
-            path = os.getcwd()
-            tabla(file,path)
+            cP = os.getcwd()
+            lista = os.listdir(cP)
 
+            file = input("Crea tabla ")
+
+            for files in lista:
+                files = files.replace(".dat","")
+                files = files.replace(".est","")
+
+                if file == files:
+                    obj.fileExist = True
+
+            if not obj.fileExist:
+                path = os.getcwd()
+                tabla(file,path)
+            else:
+                print("File Exist")
+                obj.fileExist = False
         else:
             print("Select a DB first")
     except OSError:
@@ -222,8 +236,20 @@ def showTables():
     try:
         if obj.validarUsebase:
             cP = os.getcwd()
+            ls = os.listdir(cP)
 
-            print("Directories:",os.listdir(cP))
+            for x in ls:
+                if ".est" in x:
+                    tabla = x
+                    print(tabla + " --> ")
+
+                    f = open(x,"r")
+
+                    for line in f:
+                        print("\t" + line)
+                    f.close
+
+
         else:
             print("Select a DB First")
     except:
@@ -296,7 +322,6 @@ def init():
 def layoutBrychxpin():
     print("-----------------------------------------------------------")
     init()
-
 
 
 layoutBrychxpin()
