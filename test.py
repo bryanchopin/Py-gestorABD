@@ -155,6 +155,22 @@ def deleteWrite(file,path,field):
 
     return
 
+def InsertWrite(file,path):
+    path = f'/{path}/{file}.est'
+    dat = open( path, "a")
+
+    for element in obj.campo:
+        dat.write(str(element) + "\n")
+
+    dat.close()
+
+
+    print(obj.campo)
+    obj.campo.clear()
+    obj.addField = False
+
+    return
+
 
 def clearConsole():
     command = 'clear'
@@ -227,6 +243,32 @@ def usaDB():
         obj.validarUsebase = False
 
 
+
+def insertTable():
+    try:
+        if obj.validarUsebase:
+
+            cP = os.getcwd()
+            lista = os.listdir(cP)
+
+
+            obj.addField = True
+            file = input("Inserta en ")
+
+
+            for files in lista:
+                if file + ".dat" in  files:
+                    obj.fileExist = True
+
+            if obj.fileExist:
+                InsertWrite(file,cP,field)
+                obj.fileExist = False
+            else:
+                print("File Not Exist")
+        else:
+            print("Select DB first")
+    except:
+        print("Something Wrong Happened")
 
 
 
@@ -329,10 +371,10 @@ def addTableField():
         else:
             print("Select DB first")
     except:
-        print("Fuck idk")
+        print("Something Wrong Happened")
 
 def deleteTableField():
-    # try:
+    try:
         if obj.validarUsebase:
 
             cP = os.getcwd()
@@ -359,8 +401,8 @@ def deleteTableField():
                 print("File Not Exist")
         else:
             print("Select DB first")
-    # except:
-    #     print("Fuck idk")
+    except:
+        print("Something Wrong Happened")
 
 
 
@@ -389,7 +431,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","agrega campo","borra campo","usa base","exit;","muestra tablas;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help;"]
+    opcion = ["path base","inserta en","agrega campo","borra campo","usa base","exit;","muestra tablas;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help;"]
 
     while not salir:
 
@@ -415,6 +457,8 @@ def menu():
             addTableField()
         elif opcion == "borra campo":
             deleteTableField()
+        elif opcion == "inserta en":
+            insertTable()
         elif opcion == "clear;":
             clearConsole()
         elif opcion == "help;":
