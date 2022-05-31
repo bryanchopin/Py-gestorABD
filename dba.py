@@ -119,7 +119,7 @@ def validarCampos(atributos,field):
                 characters = "'[] "
                 for z in range(len(characters)):
                     y = y.replace(characters[z],"")
-                # print(y)
+                print(y)
 
             if type(field) == type(x[1]):
                 obj.validarFieldType = True
@@ -500,8 +500,8 @@ def menu():
             addTableField()
         elif opcion == "borra campo":
             deleteTableField()
-        # elif opcion == "inserta en":
-        #     insertTable()
+        elif opcion == "inserta en":
+            insertTable()
         elif opcion == "clear;":
             clearConsole()
         elif opcion == "help;":

@@ -110,28 +110,42 @@ def tabla(file,path):
         print("error founded")
 
 def validarCampos(atributos,field):
-    try:
+    # try:
         # longitud = len(atributos)
+        # campos = []
+        # for x in atributos:
+        #     #convierte en lista los elementos del .EST
+        #     x = str(x).split(",")
+        #     # selecciona los elementos del arreglo resultado
+        #     for y in x:
+        #         characters = "'[] "
+        #         for z in range(len(characters)):
+        #             y = y.replace(characters[z],"")
+        #             campos.append(y)
 
-        for x in atributos:
-            x = str(x).split(",")
-            for y in x:
-                characters = "'[] "
-                for z in range(len(characters)):
-                    y = y.replace(characters[z],"")
-                # print(y)
 
-            if type(field) == type(x[1]):
-                obj.validarFieldType = True
-            else:
-                print("Not Type Field")
-            if len(field) <= len(x[2]):
-                obj.validarFieldLen = True
-            else:
-                print("Not Type Length")
+        print(atributos)
+        print(type(atributos))
+        print(len(atributos))
+        print(atributos[0])
+        print(atributos[1])
+        print(atributos[2])
+        print(type(atributos[0]))
+        print(type(atributos[1]))
+        print(type(atributos[2]))
 
-    except:
-        print("some")
+
+
+            # if type(field) == type(x[1]):
+            #     obj.validarFieldType = True
+            # else:
+            #     print("Not Type Field")
+            # if len(field) <= len(x[2]):
+            #     obj.validarFieldLen = True
+            # else:
+            #     print("Not Type Length")
+    # except:
+    #     print("some")
 
 def write(file,path):
     dat = open(f'/{path}/{file}.est', "w")
@@ -263,17 +277,25 @@ def usaDB():
 
 
 def insertTable():
-    try:
+    # try:
         if obj.validarUsebase:
-
+            n = 0
             cP = os.getcwd()
             lista = os.listdir(cP)
 
-
-            obj.addField = True
             file = input("Inserta en ")
 
-            line = linecache.getlines(file + ".est")
+            lines = linecache.getlines(file + ".est")
+            lines = str(lines)
+            lines = lines.replace("\\n","")
+            # lines = lines.replace("\'","")
+            characters = "\'[] \n \" "
+
+            for z in range(len(characters)):
+                lines = str(lines).replace(characters[z],"")
+
+            linee = list(lines.split(","))
+            print(linee)
 
 
             for files in lista:
@@ -282,7 +304,6 @@ def insertTable():
 
 
             if obj.fileExist:
-                n = 0
                 for x in lista:
                     if file + ".est" in x:
                         tabla = x
@@ -293,25 +314,23 @@ def insertTable():
                             n = n + 1
                             print(f'C{n} ' + "\t" + line + "\n")
                         f.close
-                        field = input(" ")
 
-                        validarCampos(line,field)
+                        field = input("Campo: ")
+                        validarCampos(linee,field)
 
-                        n = 0
 
-                        if obj.validarFieldType & obj.validarFieldLen:
-                            InsertWrite(file,cP,field)
-                            obj.fileExist = False
+                # if obj.validarFieldType & obj.validarFieldLen:
+                #     InsertWrite(file,cP,field)
+                #     obj.fileExist = False
 
-                        else:
-                            print("Error Founded")
+                else:
+                    print("Error Founded")
             else:
                 print("File Not Exist")
         else:
             print("Select DB first")
-    except:
-        print("Something Wrong Happened")
-
+    # except:
+    #     print("Something Wrong Happened")
 
 
 def createTable():
@@ -474,7 +493,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","inserta en","agrega campo","borra campo","usa base","exit;","muestra tablas;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help;"]
+    opcion = ["path base","inserta en","agrega campo","borra campo","usa base","exit","muestra tablas;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help"]
 
     while not salir:
 
@@ -500,13 +519,13 @@ def menu():
             addTableField()
         elif opcion == "borra campo":
             deleteTableField()
-        # elif opcion == "inserta en":
-        #     insertTable()
-        elif opcion == "clear;":
+        elif opcion == "inserta en":
+            insertTable()
+        elif opcion == "clear":
             clearConsole()
-        elif opcion == "help;":
+        elif opcion == "help":
             helpConsole()
-        elif opcion == "exit;":
+        elif opcion == "exit":
             salir = True
         else:
             print ("Introduce un comando valido")
