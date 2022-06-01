@@ -1,2 +1,6 @@
-['nombre', 'caracter', '23']
-['nombre', 'caracter', '23']
+['nombre', 'entero', '5']
+
+
+desplegar if tabla[0] == input{
+    
+}

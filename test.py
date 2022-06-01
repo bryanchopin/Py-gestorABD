@@ -15,10 +15,13 @@ class own:
     def __init__(self):
         self.campo = []
         self.tipos = ["caracter","entero","decimal","fecha"]
+        self.Tc = ['a',2,2.3]
+
         self.Validartipo = False
         self.validarLongitud = False
         self.validarLenght = False
         self.validarUsebase = False
+
         self.fileExist = False
         self.addField = False
 
@@ -109,43 +112,117 @@ def tabla(file,path):
     except:
         print("error founded")
 
+
 def validarCampos(atributos,field):
-    # try:
-        # longitud = len(atributos)
-        # campos = []
-        # for x in atributos:
-        #     #convierte en lista los elementos del .EST
-        #     x = str(x).split(",")
-        #     # selecciona los elementos del arreglo resultado
-        #     for y in x:
-        #         characters = "'[] "
-        #         for z in range(len(characters)):
-        #             y = y.replace(characters[z],"")
-        #             campos.append(y)
+    try:
+        # si al momento de ingresar es un vacio
+        if field == "":
+            obj.validarFieldLen = True
+            obj.validarFieldType = True
 
+        #tipeando longitud de la estructura
+        if '.' in atributos[2]:
+            atributos[2] = float(atributos[2])
+        elif str.isnumeric(atributos[2]):
+            atributos[2] = int(atributos[2])
 
-        print(atributos)
-        print(type(atributos))
-        print(len(atributos))
-        print(atributos[0])
-        print(atributos[1])
-        print(atributos[2])
-        print(type(atributos[0]))
-        print(type(atributos[1]))
-        print(type(atributos[2]))
-
-
-
-            # if type(field) == type(x[1]):
-            #     obj.validarFieldType = True
+        if str.isnumeric(field):
+            if len(field) <= atributos[2]:
+                obj.validarFieldLen = True
+                # print("pass numeric field ")
             # else:
-            #     print("Not Type Field")
-            # if len(field) <= len(x[2]):
-            #     obj.validarFieldLen = True
+            #     print("Field Numeric Length Error")
+
+        elif str(field):
+            #validado longitud de la query
+            if len(field) <= atributos[2]:
+                obj.validarFieldLen = True
+                # print("pass string field ")
             # else:
-            #     print("Not Type Length")
-    # except:
-    #     print("some")
+            #     print("Field String Length Error")
+
+        # si es un string
+        if atributos[1] == obj.tipos[0] :
+            tipoDato = obj.Tc[0]
+        # si es un entero
+        elif atributos[1] == obj.tipos[1]:
+            tipoDato = obj.Tc[1]
+        # si es un flotante
+        elif atributos[1] == obj.tipos[2]:
+            tipoDato = obj.Tc[2]
+
+        # Asigna el tipo a la variable ingresada
+        if str.isnumeric(field):
+            field = int(field)
+        elif "." in field:
+            field = float(field)
+
+        if type(field) == type(tipoDato):
+            obj.validarFieldType = True
+            print(type(field))
+            print(type())
+            # print("pass type field ")
+        # else:
+        #     print("Field Type Error")
+    except:
+        print("Insert Validation Error F")
+
+def Itable(file,lista):
+    try:
+        if obj.fileExist:
+            n = 0
+            # leyendo las lineas del EST
+            lines = linecache.getlines(file + ".est")
+            lines = str(lines).replace("\\n","")
+
+            characters = "\'[] \n \" "
+
+            for z in range(len(characters)):
+                lines = str(lines).replace(characters[z],"")
+
+            linee = list(lines.split(","))
+            print(linee)
+
+            for x in lista:
+                if file + ".est" in x:
+                    tabla = x
+                    print(tabla + " --> ")
+                    f = open(x,"r")
+                    for line in f:
+                        n = n + 1
+                        print(f'C{n} ' + "\t" + line + "\n")
+
+                        lines = linecache.getlines(file + ".est")
+                        lines = str(lines).replace("\\n","")
+
+                        characters = "\'[] \n \" "
+
+                        for z in range(len(characters)):
+                            lines = str(lines).replace(characters[z],"")
+
+                        lineee = list(lines.split(","))
+
+
+                    f.close
+                    field = input("Campo: ")
+                    validarCampos(lineee,field)
+
+
+            if obj.validarFieldType and obj.validarFieldLen:
+                cP = os.getcwd()
+                InsertWrite(file,cP,field)
+                obj.fileExist = False
+                obj.validarFieldLen = False
+                obj.validarFieldType = False
+                print ("Pass")
+
+            else:
+                print("Insert Error")
+        else:
+            print("File Not Exist")
+    except:
+        print("s")
+
 
 def write(file,path):
     dat = open(f'/{path}/{file}.est', "w")
@@ -198,8 +275,8 @@ def InsertWrite(file,path,field):
 
     path = f'/{path}/{file}.dat'
     dat = open( path, "a")
-    for element in field:
-        dat.write(str(element) + "\n")
+    # for element in field:
+    dat.write(str(field) + "\n")
     dat.close()
 
     return
@@ -277,60 +354,25 @@ def usaDB():
 
 
 def insertTable():
-    # try:
+    try:
         if obj.validarUsebase:
-            n = 0
             cP = os.getcwd()
             lista = os.listdir(cP)
 
             file = input("Inserta en ")
 
-            lines = linecache.getlines(file + ".est")
-            lines = str(lines)
-            lines = lines.replace("\\n","")
-            # lines = lines.replace("\'","")
-            characters = "\'[] \n \" "
-
-            for z in range(len(characters)):
-                lines = str(lines).replace(characters[z],"")
-
-            linee = list(lines.split(","))
-            print(linee)
-
-
-            for files in lista:
-                if file + ".dat" in  files:
-                    obj.fileExist = True
-
-
-            if obj.fileExist:
-                for x in lista:
-                    if file + ".est" in x:
-                        tabla = x
-                        print(tabla + " --> ")
-
-                        f = open(x,"r")
-                        for line in f:
-                            n = n + 1
-                            print(f'C{n} ' + "\t" + line + "\n")
-                        f.close
-
-                        field = input("Campo: ")
-                        validarCampos(linee,field)
-
-
-                # if obj.validarFieldType & obj.validarFieldLen:
-                #     InsertWrite(file,cP,field)
-                #     obj.fileExist = False
-
-                else:
-                    print("Error Founded")
+            if "" != str(file):
+                for files in lista:
+                    if file + ".dat" in  files:
+                        obj.fileExist = True
+                Itable(file,lista)
             else:
                 print("File Not Exist")
+
         else:
             print("Select DB first")
-    # except:
-    #     print("Something Wrong Happened")
+    except:
+        print("Something Wrong Happened")
 
 
 def createTable():
