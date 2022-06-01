@@ -374,6 +374,42 @@ def insertTable():
     except:
         print("Something Wrong Happened")
 
+def showTableWhere():
+    try:
+        if obj.validarUsebase:
+            file = input("Lista * ")
+            cP = os.getcwd()
+            ls = os.listdir(cP)
+            n = 0
+
+            for x in ls:
+                if file + ".est" in x:
+                    tabla = x
+                    print(tabla + " --> ")
+
+                    f = open(x,"r")
+
+                    for line in f:
+                        n = n + 1
+                        print( "\t" +  f'C{n}' + "\t" + line)
+                    f.close
+                    n = 0
+                if file + ".dat" in x:
+                    tabla = x
+                    print(tabla + " --> ")
+
+                    z = open(x,"r")
+
+                    for line in z:
+                        n = n + 1
+                        print( "\t" + f'D{n} ' + "\t" + line)
+                    z.close
+                    n = 0
+        else:
+            print("Select a DB First")
+    except:
+        print("Something wrong happened")
+
 
 def createTable():
     try:
@@ -444,7 +480,6 @@ def showTables():
                         print(f'C{n} ' + "\t" + line)
                     f.close
                     n = 0
-
         else:
             print("Select a DB First")
     except:
@@ -535,7 +570,7 @@ def pedirComando():
 
 def menu():
     salir = False
-    opcion = ["path base","inserta en","agrega campo","borra campo","usa base","exit","muestra tablas;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help"]
+    opcion = ["path base","inserta en","lista * en","agrega campo","borra campo","usa base","exit","muestra tablas;","muestra bases;","crea base","borra base","crea tabla","borra tabla","clear","help"]
 
     while not salir:
 
@@ -563,6 +598,8 @@ def menu():
             deleteTableField()
         elif opcion == "inserta en":
             insertTable()
+        elif opcion == "lista * en":
+            showTableWhere()
         elif opcion == "clear":
             clearConsole()
         elif opcion == "help":
